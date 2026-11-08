@@ -224,8 +224,21 @@ html,body{overflow-x:clip;max-width:100%}
   .sec-head h2{font-size:20px}
   .metric{padding:10px 12px}
   .metric .v{font-size:30px}
-  .tscroll>table,.mb-p table{min-width:560px}
-  .tscroll>table.week{min-width:0}
+  .tscroll>table:not(.cards):not(.week){min-width:560px}
+  /* mục 06 và NIKKE META: mỗi NIKKE thành 1 thẻ 2–3 dòng, không cần vuốt ngang
+     dòng 1: # · Tier · Tên  |  dòng 2: Class · Code · Burst · Vũ khí  |  dòng 3: các cột còn lại */
+  table.cards,table.cards tbody{display:block;width:100%}
+  table.cards thead{display:none}
+  table.cards tr:not(.grp){display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px;padding:9px 2px;border-bottom:1px solid var(--line)}
+  table.cards tr.grp,table.cards tr.grp td{display:block}
+  table.cards td{display:block;padding:0;border:0}
+  table.cards td:nth-child(1){min-width:18px;color:var(--muted)}
+  table.cards td:nth-child(3){flex:1 0 calc(100% - 100px);font-weight:600;font-size:14px}
+  table.cards td:nth-child(7){flex:1 0 auto}
+  table.cards td:nth-child(n+6)::before{content:attr(data-l) " ";font-family:var(--head);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  table.cards td:nth-child(n+8){font-size:13px}
+  #roster table.cards td:nth-child(8){flex-basis:100%}
+  .mb-p table.cards td:nth-child(n+8){margin-right:6px}
   td,th{padding:5px 6px}
   .swipe{display:block}
   .front .today-box .mf img{height:110px}
@@ -1229,8 +1242,9 @@ html,body{overflow-x:clip;max-width:100%}
   </details>
 
   <details class="log">
-    <summary><span class="d">08/11/2026 · Chủ Nhật</span><span class="c">2 thay đổi</span></summary>
+    <summary><span class="d">08/11/2026 · Chủ Nhật</span><span class="c">3 thay đổi</span></summary>
     <ol>
+      <li><b>12:49</b> Điện thoại: 2 bảng mục 06 và bảng NIKKE META (tab NIKKE, Treasure) đổi sang dạng thẻ, không cần vuốt ngang. Mỗi NIKKE 3 dòng: # · Tier · Tên / Class · Code · Burst · Vũ khí / Collection (hoặc Build · Tuần · Bạn, Đã mở · Phase 3 · Bạn). Máy tính vẫn hiện bảng như cũ.</li>
       <li><b>12:38</b> <strong>Sửa hiển thị trên điện thoại</strong> (bạn báo trang bị lệch trái, bảng mục 06 và NIKKE META bị cắt): mọi bảng giờ cuộn ngang trong khung riêng nên trang không còn bị kéo rộng; thêm dòng "Kéo ngang để xem đủ cột" trên điện thoại. Mục lục thành 1 hàng vuốt ngang; thu nhỏ lề, tiêu đề, logo Tribe Tower, ảnh boss; thẻ NIKKE xếp 2 cột; khung NIKKE META cao hơn.</li>
       <li><b>12:06</b> <strong>Sửa lịch Tribe Tower theo server Nhật</strong> (ảnh màn hình của bạn: Chủ Nhật mở cả 4; GameWith xác nhận). Chủ Nhật: cả 4 tháp (trước ghi chỉ Tetra). Thứ Hai: chỉ Tetra (trước ghi cả 4). Elysion: Thứ Ba, Sáu, Chủ Nhật · Missilis: Thứ Tư, Bảy, Chủ Nhật · Tetra: Thứ Hai, Năm, Chủ Nhật · Pilgrim: Thứ Tư, Chủ Nhật. Đã sửa bảng lịch, ô Tribe Tower hôm nay và tên ngày ở từng tháp mục 10; thêm nguồn [32].</li>
     </ol>
@@ -1334,6 +1348,12 @@ html,body{overflow-x:clip;max-width:100%}
       c.slice(2).forEach(function(x){tr.appendChild(x)});
     });
   });
+  /* 4) gắn nhãn cột cho từng ô để điện thoại hiện dạng thẻ (xem CSS table.cards) */
+  document.querySelectorAll('#roster table, #mp-nk table, #mp-tr table').forEach(function(t){
+    t.classList.add('cards');
+    var hs=[].map.call(t.tHead.rows[0].cells,function(h){return h.textContent.trim()});
+    [].forEach.call(t.tBodies[0].rows,function(tr){if(tr.classList.contains('grp'))return;[].forEach.call(tr.cells,function(td,i){td.dataset.l=hs[i]})});
+  });
 })();</script>
 <script>(function(){
   /* bọc mọi bảng (trừ bảng trong NIKKE META, vốn đã tự cuộn) vào khung cuộn ngang, kèm gợi ý trên điện thoại */
@@ -1341,9 +1361,8 @@ html,body{overflow-x:clip;max-width:100%}
     if(t.closest('.mb-p')||t.parentNode.classList.contains('tscroll'))return;
     var w=document.createElement('div');w.className='tscroll';
     t.parentNode.insertBefore(w,t);w.appendChild(t);
-    if(!t.classList.contains('week')){var s=document.createElement('p');s.className='swipe';s.textContent='← Kéo ngang để xem đủ cột →';w.parentNode.insertBefore(s,w)}
+    if(!t.classList.contains('week')&&!t.classList.contains('cards')){var s=document.createElement('p');s.className='swipe';s.textContent='← Kéo ngang để xem đủ cột →';w.parentNode.insertBefore(s,w)}
   });
-  document.querySelectorAll('.mb-p').forEach(function(p){var s=document.createElement('p');s.className='swipe';s.textContent='← Kéo ngang để xem đủ cột →';p.insertBefore(s,p.firstChild)});
 })();</script>
 <a class="to-top" id="to-top" href="#" aria-label="Lên đầu trang" title="Lên đầu trang">↑</a>
 <script>(function(){var b=document.getElementById('to-top');function f(){b.classList.toggle('on',window.scrollY>600)}window.addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})})})();</script>
