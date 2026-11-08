@@ -206,6 +206,41 @@ td.cl{white-space:nowrap}
 .wheel{max-width:440px;margin:12px auto 4px}
 .wheel svg{width:100%;height:auto;display:block}
 .cap{font-size:12px;color:var(--muted);text-align:center}
+/* bảng rộng cuộn ngang trong khung riêng, không kéo giãn cả trang */
+html,body{overflow-x:clip;max-width:100%}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:4px 0 8px}
+.tscroll>table{margin:0}
+.item>div,.tier,.meta-box,.front>*{min-width:0}
+.swipe{display:none;font-size:11px;color:var(--muted);margin:0 0 4px}
+@media (max-width:760px){
+  .wrap{padding:16px 14px 0}
+  .hero{padding:22px 0 16px;gap:14px}
+  .hero h1{font-size:44px}
+  .topbar{font-size:10px;gap:8px;flex-wrap:wrap}
+  .toc{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{flex-shrink:0}
+  .sec-no{font-size:40px}
+  .sec-head h2{font-size:20px}
+  .metric{padding:10px 12px}
+  .metric .v{font-size:30px}
+  .tscroll>table,.mb-p table{min-width:560px}
+  .tscroll>table.week{min-width:0}
+  td,th{padding:5px 6px}
+  .swipe{display:block}
+  .front .today-box .mf img{height:110px}
+  .front .today-box .mf-sm .mf img{height:72px}
+  .mb-h .lb{width:100%;margin-bottom:4px}
+  .mb-p{max-height:340px;padding:2px 8px 8px}
+  .tier-b{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}
+  .nk{padding:6px 8px 6px 10px}
+  .nk .nm{font-size:13px}
+  .bar-row{grid-template-columns:92px minmax(0,1fr) 30px;gap:6px}
+  .boss-img{width:96px}.boss-img.kr{width:110px}
+  .wheel{max-width:100%}
+  .tw-lg{width:80px;height:38px}
+  .to-top{right:12px;bottom:12px}
+}
 @media (max-width:760px){
   .hero,.diagram,.front{grid-template-columns:minmax(0,1fr)}
   .mb-h{flex-wrap:wrap}
@@ -355,7 +390,7 @@ td.cl{white-space:nowrap}
   /* ô Tribe Tower hôm nay: tên ngày + logo hãng theo lịch */
   var D=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
   var L={E:['Elysion','Manufacturer/Elysion_logo.webp'],M:['Missilis','Manufacturer/Missilis_logo.webp'],T:['Tetra','Manufacturer/Tetra_logo.webp'],P:['Pilgrim','Manufacturer/Pilgrim_logo.webp']};
-  var g=new Date().getDay(),day={0:'T',1:'EMTP',2:'E',3:'MP',4:'T',5:'E',6:'M'}[g];
+  var g=new Date().getDay(),day={0:'EMTP',1:'T',2:'E',3:'MP',4:'T',5:'E',6:'M'}[g];
   document.getElementById('tb-day').textContent=D[g];
   var el=document.getElementById('tb-tw');
   el.className='tw mf-row'+(day.length>2?' mf-sm':'');
@@ -1111,16 +1146,16 @@ td.cl{white-space:nowrap}
     <div><h3>Lịch mở trong tuần</h3><span class="tag">Tháp nhà sản xuất</span></div>
     <div>
       <table class="week"><thead><tr><th>Ngày</th><th>Elysion</th><th>Missilis</th><th>Tetra</th><th>Pilgrim</th></tr></thead><tbody>
-        <tr data-d="1"><td>Thứ Hai</td><td class="on">Mở</td><td class="on">Mở</td><td class="on">Mở</td><td class="on">Mở</td></tr>
+        <tr data-d="1"><td>Thứ Hai</td><td>–</td><td>–</td><td class="on">Mở</td><td>–</td></tr>
         <tr data-d="2"><td>Thứ Ba</td><td class="on">Mở</td><td>–</td><td>–</td><td>–</td></tr>
         <tr data-d="3"><td>Thứ Tư</td><td>–</td><td class="on">Mở</td><td>–</td><td class="on">Mở</td></tr>
         <tr data-d="4"><td>Thứ Năm</td><td>–</td><td>–</td><td class="on">Mở</td><td>–</td></tr>
         <tr data-d="5"><td>Thứ Sáu</td><td class="on">Mở</td><td>–</td><td>–</td><td>–</td></tr>
         <tr data-d="6"><td>Thứ Bảy</td><td>–</td><td class="on">Mở</td><td>–</td><td>–</td></tr>
-        <tr data-d="0"><td>Chủ Nhật</td><td>–</td><td>–</td><td class="on">Mở</td><td>–</td></tr>
+        <tr data-d="0"><td>Chủ Nhật</td><td class="on">Mở</td><td class="on">Mở</td><td class="on">Mở</td><td class="on">Mở</td></tr>
       </tbody></table>
       <script>(function(){var r=document.querySelector('.week tr[data-d="'+new Date().getDay()+'"]');if(r)r.className='today'})();</script>
-      <p class="note"><strong>Mỗi tháp mở 3 ngày một tuần</strong> (Pilgrim chỉ 2 ngày), nên tối đa 9 tầng mỗi tuần (Pilgrim 6). Thứ Hai mở cả 4, đừng bỏ. Tribe Tower chính mở mọi ngày. Dòng "Hôm nay" theo giờ máy bạn; ngày trong game đổi theo giờ reset của server, nên sát giờ reset có thể lệch 1 ngày. <a class="cite" href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">[26]</a><a class="cite" href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">[27]</a></p>
+      <p class="note"><strong>Lịch theo server Nhật</strong> (GameWith, đã đối chiếu ảnh màn hình của bạn ngày 08/11/2026). <strong>Chủ Nhật mở cả 4 tháp, đừng bỏ.</strong> Mỗi tháp mở 3 ngày một tuần (Pilgrim chỉ 2 ngày), nên tối đa 9 tầng mỗi tuần (Pilgrim 6). Tribe Tower chính mở mọi ngày. nikke.gg và Prydwen ghi ngược lại (Thứ Hai mở cả 4, Chủ Nhật chỉ Tetra), có thể do khác giờ reset của server. Dòng "Hôm nay" theo giờ máy bạn; sát giờ reset có thể lệch 1 ngày. <a class="cite" href="https://gamewith.jp/nikke/article/show/370073" target="_blank">[32]</a><a class="cite" href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">[26]</a><a class="cite" href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">[27]</a></p>
     </div>
   </div>
   <div class="item">
@@ -1129,7 +1164,7 @@ td.cl{white-space:nowrap}
       <p class="note"><strong>Nguyên tắc chung (nikke.gg):</strong> mỗi bậc Burst cần 1 con 20s hoặc 2 con 40s; nên có 1 buffer, 1 con giảm hồi chiêu, 2 DPS trở lên, healer cho tầng boss. Hãng sản xuất đối chiếu theo NIKKE Wiki. <a class="cite" href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Nikke/List_by_Manufacturer" target="_blank">[29]</a></p>
       <p class="note"><strong>NIKKE Over-spec đi được 2 tháp:</strong> tháp hãng gốc <em>và</em> tháp Pilgrim (game gọi là tháp Pilgrim/Over-spec). Bạn có cả 3 con Over-spec: <strong>Rapi: Red Hood</strong> (Elysion), <strong>Anis: Star</strong> (Tetra), <strong>Neon: Vision Eye</strong> (Missilis). <a class="cite" href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Tribe_Tower" target="_blank">[30]</a></p>
 
-      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Elysion_logo.webp" alt="Elysion"></span><span><strong>Elysion</strong> · Thứ Hai, Ba, Sáu</span></p>
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Elysion_logo.webp" alt="Elysion"></span><span><strong>Elysion</strong> · Thứ Ba, Sáu, Chủ Nhật</span></p>
       <div class="team"><span class="lab">A</span>
         <div class="nk fire"><span class="nm">Emma: TU</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">Hồi máu</span></div>
         <div class="nk fire"><span class="nm">Eunhwa: TU</span><span class="meta"><span class="bu">II</span><svg><use href="#i-att"/></svg>20s</span><span class="why">Tự bấm để Burst nhanh</span></div>
@@ -1146,7 +1181,7 @@ td.cl{white-space:nowrap}
       </div>
       <p class="note"><strong>Tháp mạnh nhất của bạn.</strong> nikke.gg gọi Elysion là tháp khó nhất, nhưng bạn có đủ cả bộ Absolute lẫn cặp Maid, đều là Elysion. Đội A cả 5 con đều Fire (giống Indivilia C ở mục 08), mạnh khi quái yếu Fire (quái Wind). Đội B là đội Elysion số 1 của nikke.gg, dùng khi quái không yếu Fire. Thay thế: Arcana: Fortune Mate (Burst II 20s, Elysion), Helm (hồi máu bằng hút máu ở tầng boss), Guillotine, Privaty.</p>
 
-      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Missilis_logo.webp" alt="Missilis"></span><span><strong>Missilis</strong> · Thứ Hai, Tư, Bảy</span></p>
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Missilis_logo.webp" alt="Missilis"></span><span><strong>Missilis</strong> · Thứ Tư, Bảy, Chủ Nhật</span></p>
       <div class="team"><span class="lab">A</span>
         <div class="nk iron"><span class="nm">Tia</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>40s</span><span class="why">Đứng trái cùng</span></div>
         <div class="nk iron"><span class="nm">Liter</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">CDR</span></div>
@@ -1166,7 +1201,7 @@ td.cl{white-space:nowrap}
       </div>
       <p class="note">Bạn có đủ bộ ba Blanc, Noir, Alice mà nikke.gg nói là chìa khóa của tháp Tetra. Blanc phải đi cùng Noir: Noir giảm hồi chiêu của Blanc xuống 20s. Debuff của Blanc chỉ dính quái đang có trên màn hình, nên đợi quái ra hết rồi mới Burst. Tầng boss một chọi một: đổi Sugar → Anis: Sparkling Summer. Rouge thay được Volume.</p>
 
-      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Pilgrim_logo.webp" alt="Pilgrim"></span><span><strong>Pilgrim</strong> · Thứ Hai, Tư</span></p>
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Pilgrim_logo.webp" alt="Pilgrim"></span><span><strong>Pilgrim</strong> · Thứ Tư, Chủ Nhật</span></p>
       <div class="team"><span class="lab">A</span>
         <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">CDR</span></div>
         <div class="nk wind"><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span></div>
@@ -1191,6 +1226,14 @@ td.cl{white-space:nowrap}
       <li><strong>Khi cần thêm ô Synchro:</strong> rút Rosanna trước (chưa có Treasure chỉ tier F).</li>
       <li><strong>Treasure đầu tiên nên nâng: Moran.</strong> Prydwen xếp ưu tiên số 1 trong mọi bản Treasure (D → SSS trên nikke.gg); lựa chọn thứ hai là Privaty nếu ưu tiên đánh boss. Cần búp bê SR cấp 15 và 2 lần Limit Break.</li>
     </ul>
+  </details>
+
+  <details class="log">
+    <summary><span class="d">08/11/2026 · Chủ Nhật</span><span class="c">2 thay đổi</span></summary>
+    <ol>
+      <li><b>12:38</b> <strong>Sửa hiển thị trên điện thoại</strong> (bạn báo trang bị lệch trái, bảng mục 06 và NIKKE META bị cắt): mọi bảng giờ cuộn ngang trong khung riêng nên trang không còn bị kéo rộng; thêm dòng "Kéo ngang để xem đủ cột" trên điện thoại. Mục lục thành 1 hàng vuốt ngang; thu nhỏ lề, tiêu đề, logo Tribe Tower, ảnh boss; thẻ NIKKE xếp 2 cột; khung NIKKE META cao hơn.</li>
+      <li><b>12:06</b> <strong>Sửa lịch Tribe Tower theo server Nhật</strong> (ảnh màn hình của bạn: Chủ Nhật mở cả 4; GameWith xác nhận). Chủ Nhật: cả 4 tháp (trước ghi chỉ Tetra). Thứ Hai: chỉ Tetra (trước ghi cả 4). Elysion: Thứ Ba, Sáu, Chủ Nhật · Missilis: Thứ Tư, Bảy, Chủ Nhật · Tetra: Thứ Hai, Năm, Chủ Nhật · Pilgrim: Thứ Tư, Chủ Nhật. Đã sửa bảng lịch, ô Tribe Tower hôm nay và tên ngày ở từng tháp mục 10; thêm nguồn [32].</li>
+    </ol>
   </details>
 
   <details class="log">
@@ -1247,7 +1290,7 @@ td.cl{white-space:nowrap}
 
 <footer style="padding:24px 0;font-size:12px;color:var(--muted);line-height:1.8">
   <strong style="font-family:var(--head);text-transform:uppercase;letter-spacing:.1em;color:var(--ink2)">Nguồn</strong><br>
-  [1] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1cmkwya/how_does_bursts_technically_work/" target="_blank">r/NikkeOutpost: Burst</a> · [2] <a href="https://nikke.gg/synchro-device-and-leveling-guide/" target="_blank">Nikke.gg: Synchro Device</a> · [3] <a href="https://nikke.gg/collection-item-guide-and-overview/" target="_blank">Nikke.gg: Collection</a> · [4] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Collection_Item" target="_blank">NIKKE Wiki: Collection Item</a> · [5] <a href="https://www.prydwen.gg/nikke/characters" target="_blank">Prydwen: Characters</a> · [6] <a href="https://nikkers.cc/characters" target="_blank">nikkers.cc</a> · [7] <a href="https://www.prydwen.gg/nikke/builds" target="_blank">Prydwen: Builds</a> · [8] <a href="https://www.ldshop.gg/blog/goddess-of-victory-nikke/nikke-scarlet-goddeath.html" target="_blank">LDShop: Scarlet: Goddeath</a> · [9] <a href="https://nikke.gg/anomaly-interception-overview/" target="_blank">Nikke.gg: Anomaly Interception</a> · [10]–[14] Nikke.gg: hướng dẫn từng boss · [15] <a href="https://www.reddit.com/r/NIKKEGoddessofVictory/comments/1r10bk2/" target="_blank">r/NIKKEGoddessofVictory: thứ tự Burst</a> · [16] <a href="https://nikke.gg/characterguides/rapi-red-hood/" target="_blank">Nikke.gg: Rapi: Red Hood</a> · [17] <a href="https://nikke.gg/characters/tia/" target="_blank">Nikke.gg: Tia</a> · [18] <a href="https://www.reddit.com/r/NikkeOutpost/comments/17wvoo6/" target="_blank">r/NikkeOutpost: vị trí đứng</a> · [19] <a href="https://nikke.gg/team-compositions/" target="_blank">Nikke.gg: Team Compositions (07/2024)</a> · [20] <a href="https://www.gamsgo.com/blog/nikke-best-team" target="_blank">GamsGo: Best Teams 2026</a> · [21] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1ht34a1/whats_a_good_team/" target="_blank">r/NikkeOutpost: đội không có Crown</a> · [22] <a href="https://nikke.gg/characters/mast-romantic-maid/" target="_blank">Nikke.gg: Mast: Romantic Maid</a> · [23] <a href="https://www.prydwen.gg/nikke/characters/eunhwa-tactical-upgrade" target="_blank">Prydwen: Eunhwa: Tactical Upgrade</a> · [24] <a href="https://nikke.gg/characters/eunhwa-tactical-upgrade" target="_blank">Nikke.gg: Eunhwa: Tactical Upgrade</a> · [25] <a href="https://nikke.gg/tier-list/" target="_blank">Nikke.gg: Tier List (11/2026)</a> · [26] <a href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">Prydwen: Tribe Towers</a> · [27] <a href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">Nikke.gg: Tribe Towers Guide</a> · [28] <a href="https://nikke.gg/tribe-tower-compositions/" target="_blank">Nikke.gg: Tribe Tower Compositions (04/2025)</a> · [29] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Nikke/List_by_Manufacturer" target="_blank">NIKKE Wiki: List by Manufacturer</a> · [30] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Tribe_Tower" target="_blank">NIKKE Wiki: Tribe Tower</a> · [31] <a href="https://nikke.gg/meta/" target="_blank">Nikke.gg: NIKKE Meta (NIKKE · Squads · Treasures)</a>
+  [1] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1cmkwya/how_does_bursts_technically_work/" target="_blank">r/NikkeOutpost: Burst</a> · [2] <a href="https://nikke.gg/synchro-device-and-leveling-guide/" target="_blank">Nikke.gg: Synchro Device</a> · [3] <a href="https://nikke.gg/collection-item-guide-and-overview/" target="_blank">Nikke.gg: Collection</a> · [4] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Collection_Item" target="_blank">NIKKE Wiki: Collection Item</a> · [5] <a href="https://www.prydwen.gg/nikke/characters" target="_blank">Prydwen: Characters</a> · [6] <a href="https://nikkers.cc/characters" target="_blank">nikkers.cc</a> · [7] <a href="https://www.prydwen.gg/nikke/builds" target="_blank">Prydwen: Builds</a> · [8] <a href="https://www.ldshop.gg/blog/goddess-of-victory-nikke/nikke-scarlet-goddeath.html" target="_blank">LDShop: Scarlet: Goddeath</a> · [9] <a href="https://nikke.gg/anomaly-interception-overview/" target="_blank">Nikke.gg: Anomaly Interception</a> · [10]–[14] Nikke.gg: hướng dẫn từng boss · [15] <a href="https://www.reddit.com/r/NIKKEGoddessofVictory/comments/1r10bk2/" target="_blank">r/NIKKEGoddessofVictory: thứ tự Burst</a> · [16] <a href="https://nikke.gg/characterguides/rapi-red-hood/" target="_blank">Nikke.gg: Rapi: Red Hood</a> · [17] <a href="https://nikke.gg/characters/tia/" target="_blank">Nikke.gg: Tia</a> · [18] <a href="https://www.reddit.com/r/NikkeOutpost/comments/17wvoo6/" target="_blank">r/NikkeOutpost: vị trí đứng</a> · [19] <a href="https://nikke.gg/team-compositions/" target="_blank">Nikke.gg: Team Compositions (07/2024)</a> · [20] <a href="https://www.gamsgo.com/blog/nikke-best-team" target="_blank">GamsGo: Best Teams 2026</a> · [21] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1ht34a1/whats_a_good_team/" target="_blank">r/NikkeOutpost: đội không có Crown</a> · [22] <a href="https://nikke.gg/characters/mast-romantic-maid/" target="_blank">Nikke.gg: Mast: Romantic Maid</a> · [23] <a href="https://www.prydwen.gg/nikke/characters/eunhwa-tactical-upgrade" target="_blank">Prydwen: Eunhwa: Tactical Upgrade</a> · [24] <a href="https://nikke.gg/characters/eunhwa-tactical-upgrade" target="_blank">Nikke.gg: Eunhwa: Tactical Upgrade</a> · [25] <a href="https://nikke.gg/tier-list/" target="_blank">Nikke.gg: Tier List (11/2026)</a> · [26] <a href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">Prydwen: Tribe Towers</a> · [27] <a href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">Nikke.gg: Tribe Towers Guide</a> · [28] <a href="https://nikke.gg/tribe-tower-compositions/" target="_blank">Nikke.gg: Tribe Tower Compositions (04/2025)</a> · [29] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Nikke/List_by_Manufacturer" target="_blank">NIKKE Wiki: List by Manufacturer</a> · [30] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Tribe_Tower" target="_blank">NIKKE Wiki: Tribe Tower</a> · [31] <a href="https://nikke.gg/meta/" target="_blank">Nikke.gg: NIKKE Meta (NIKKE · Squads · Treasures)</a> · [32] <a href="https://gamewith.jp/nikke/article/show/370073" target="_blank">GameWith: トライブタワー (lịch server Nhật)</a>
 </footer>
 
 <script>(function(){
@@ -1291,6 +1334,16 @@ td.cl{white-space:nowrap}
       c.slice(2).forEach(function(x){tr.appendChild(x)});
     });
   });
+})();</script>
+<script>(function(){
+  /* bọc mọi bảng (trừ bảng trong NIKKE META, vốn đã tự cuộn) vào khung cuộn ngang, kèm gợi ý trên điện thoại */
+  document.querySelectorAll('table').forEach(function(t){
+    if(t.closest('.mb-p')||t.parentNode.classList.contains('tscroll'))return;
+    var w=document.createElement('div');w.className='tscroll';
+    t.parentNode.insertBefore(w,t);w.appendChild(t);
+    if(!t.classList.contains('week')){var s=document.createElement('p');s.className='swipe';s.textContent='← Kéo ngang để xem đủ cột →';w.parentNode.insertBefore(s,w)}
+  });
+  document.querySelectorAll('.mb-p').forEach(function(p){var s=document.createElement('p');s.className='swipe';s.textContent='← Kéo ngang để xem đủ cột →';p.insertBefore(s,p.firstChild)});
 })();</script>
 <a class="to-top" id="to-top" href="#" aria-label="Lên đầu trang" title="Lên đầu trang">↑</a>
 <script>(function(){var b=document.getElementById('to-top');function f(){b.classList.toggle('on',window.scrollY>600)}window.addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})})})();</script>
