@@ -103,9 +103,9 @@ tr.b1 .nmc{font-weight:700}
 .nk .sk b{font-family:var(--head);font-weight:600;color:var(--ink)}
 .nk .cb{display:block;margin-top:4px;font-size:11px;color:var(--ink2);line-height:1.35}
 .nk .cb b{font-family:var(--head);font-weight:600;color:var(--ink)}
-/* thẻ mục 01 có ảnh NIKKE: ảnh nằm góc phải, mờ nhẹ, mặt luôn nằm cạnh khối tên chứ không bị chữ đè */
+/* thẻ mục 01 có ảnh NIKKE: ảnh nằm góc phải, hiện nét, mặt luôn nằm cạnh khối tên chứ không bị chữ đè */
 .nk.hasbg{overflow:hidden;container-type:inline-size}
-.nk.hasbg .bg{position:absolute;top:0;right:0;width:44%;height:88cqw;background:var(--img) center top/100% auto no-repeat;filter:blur(.8px);opacity:.62;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);mask-composite:intersect}
+.nk.hasbg .bg{position:absolute;top:0;right:0;width:44%;height:88cqw;background:var(--img) center top/100% auto no-repeat;opacity:.62;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);mask-composite:intersect}
 .nk.hasbg>*:not(.bg):not(.x){position:relative;z-index:1}
 .nk.hasbg .x{z-index:2;background:rgba(255,255,255,.85);padding:0 4px}
 .nk.hasbg .top{padding-right:40%;min-height:40cqw}
@@ -1480,9 +1480,10 @@ html[data-theme=dark]{--paper:#141418;--card:#1c1c22;--ink:#ecebe6;--ink2:#bdbcb
   </details>
 
   <details class="log" open>
-    <summary><span class="d">10/11/2026 · Thứ Ba</span><span class="c">14 thay đổi</span></summary>
+    <summary><span class="d">10/11/2026 · Thứ Ba</span><span class="c">15 thay đổi</span></summary>
     <ol>
-      <li><b>10:54</b> <strong>Thêm nút chuyển nền sáng / nền tối</strong> Nút ☾ / ☀ nằm cố định ở góc phải dưới, ngay trên nút lên đầu trang. Lần đầu mở trang sẽ theo cài đặt sáng/tối của máy, sau đó trang nhớ lựa chọn của bạn. Ở nền tối, các thanh tiêu đề chuyển sang xám đậm, nhãn vàng vẫn giữ chữ đen cho dễ đọc.</li>
+      <li><b>11:12</b> <strong>Bỏ hiệu ứng mờ (blur) trên ảnh NIKKE ở mục 01</strong> Ảnh giờ hiện nét. Vẫn giữ vị trí góc phải, độ nhạt và phần nhạt dần sang trái để chữ dễ đọc và không đè lên mặt.</li>
+<li><b>10:54</b> <strong>Thêm nút chuyển nền sáng / nền tối</strong> Nút ☾ / ☀ nằm cố định ở góc phải dưới, ngay trên nút lên đầu trang. Lần đầu mở trang sẽ theo cài đặt sáng/tối của máy, sau đó trang nhớ lựa chọn của bạn. Ở nền tối, các thanh tiêu đề chuyển sang xám đậm, nhãn vàng vẫn giữ chữ đen cho dễ đọc.</li>
 <li><b>10:46</b> <strong>Ảnh nền mục 01 nhận thêm kiểu tên file có gạch dưới</strong> Ngoài <code>anchor-innocent-maid.webp</code>, trang giờ nhận cả <code>Anchor_Innocent_Maid.webp</code> (viết hoa như tên NIKKE, cách bằng dấu gạch dưới, bỏ dấu hai chấm và phần trong ngoặc).</li>
 <li><b>03:50</b> <strong>Thêm ảnh NIKKE làm nền cho 24 thẻ ở mục 01</strong> Ảnh lấy từ thư mục <code>nikke/</code> (tên file theo tên NIKKE, vd <code>mast-romantic-maid.webp</code>), đặt ở góc phải thẻ, mờ nhẹ và nhạt dần sang trái. Tên, loại và lý do được dồn sang trái, dòng Skill/Cube/Overload bắt đầu dưới cằm nên chữ không đè lên mặt. Thẻ nào thiếu ảnh thì giữ nguyên như cũ.</li>
 <li><b>03:20</b> <strong>Thêm gợi ý Overload (Gear Investment) cho từng NIKKE</strong> (bạn yêu cầu). Mục 06: thêm cột <strong>Overload</strong> cho cả 81 con Đã Sync: số dòng cần săn (ELE, ATK, Max Ammo, Charge Speed…), dòng phụ, dòng bắt buộc và mức ưu tiên đầu tư, lấy từ mục Gear Investment trên trang từng NIKKE của Prydwen. Khi Prydwen không ghi dòng cụ thể thì dùng thứ tự điểm Overload của nikke.gg (có ghi "(nikke.gg)"); 12 con mạnh lên nhờ Treasure (Helm, Privaty, Moran, Tove, Drake, Sugar…) ghi theo bản Treasure với tiền tố "Tr:". Mục 01, 08, 09, 10: mỗi thẻ NIKKE có thêm dòng "Overload:" (3 thẻ đã ghi sẵn Overload trong dòng Skill giữ nguyên). Thêm chú thích cách đọc và quy tắc chung (thứ tự OL Mũ &gt; Găng &gt; Giáp &gt; Giày, giá trị dòng tối thiểu). Snow White: Innocent Days, Mica: Snow Buddy, Sin, Signal chưa có khuyến nghị ở cả hai nguồn. Thêm nguồn [41].</li>
