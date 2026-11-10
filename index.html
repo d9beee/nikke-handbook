@@ -283,7 +283,23 @@ html,body{overflow-x:clip;max-width:100%}
   .team .lab{grid-column:1/-1;padding:4px}
   table{font-size:12px}
 }
+/* nút chuyển sáng/tối, nằm trên nút lên đầu trang */
+.thm{position:fixed;right:20px;bottom:70px;z-index:30;width:42px;height:42px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);font-size:18px;line-height:1;cursor:pointer;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+@media (max-width:760px){.thm{right:12px;bottom:62px}}
+/* chế độ tối: đổi bảng màu; các thanh tiêu đề vốn nền đen thì đổi sang xám đậm, nhãn nền vàng giữ chữ đen */
+html[data-theme=dark]{--paper:#141418;--card:#1c1c22;--ink:#ecebe6;--ink2:#bdbcb5;--muted:#8c8c94;--line:#363640;color-scheme:dark}
+[data-theme=dark] :is(.to-top,.tw-lg,.tier-h,tr.grp td,.cmd button,.today-box,.mb-h,.log summary .c,.team .lab,.shot i,.callouts li::before,.nk .bu){background:#2c2c35;color:#ecebe6}
+[data-theme=dark] .cmd button:hover{background:#3a3a45}
+[data-theme=dark] :is(.pil,.today-box .tw span,.mb-tab[aria-selected=true],.log.todo summary .c){color:#1c1c21}
+[data-theme=dark] .nk{background:#22222a}
+[data-theme=dark] .nk.hasbg .bg{opacity:.5}
+[data-theme=dark] .nk.hasbg .x{background:rgba(28,28,34,.85)}
+[data-theme=dark] .bar-track{background:rgba(255,255,255,.07)}
+[data-theme=dark] .ink{--cc:#a3a3ad}
+[data-theme=dark] .sw{background:#a3a3ad}
+[data-theme=dark] .sw.lo{background:repeating-linear-gradient(45deg,#a3a3ad 0 3px,#4a4a54 3px 7px)}
 @media print{
+  .thm{display:none}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{padding-bottom:0}
   .toc{display:none}
@@ -292,6 +308,19 @@ html,body{overflow-x:clip;max-width:100%}
   section.sec{break-before:auto}
 }
 </style>
+<script>/* chế độ sáng/tối: nhớ lựa chọn trên máy, lần đầu theo cài đặt của điện thoại/máy tính */
+(function(){
+  var r=document.documentElement,t;
+  try{t=localStorage.getItem('nk-theme')}catch(e){}
+  if(!t)t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  r.dataset.theme=t;
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.createElement('button');b.type='button';b.className='thm';
+    function lb(){var d=r.dataset.theme==='dark';b.textContent=d?'☀':'☾';b.title=b.ariaLabel=d?'Chuyển sang nền sáng':'Chuyển sang nền tối'}
+    b.addEventListener('click',function(){r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('nk-theme',r.dataset.theme)}catch(e){}lb()});
+    lb();document.body.appendChild(b);
+  });
+})();</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1451,9 +1480,10 @@ html,body{overflow-x:clip;max-width:100%}
   </details>
 
   <details class="log" open>
-    <summary><span class="d">10/11/2026 · Thứ Ba</span><span class="c">13 thay đổi</span></summary>
+    <summary><span class="d">10/11/2026 · Thứ Ba</span><span class="c">14 thay đổi</span></summary>
     <ol>
-      <li><b>10:46</b> <strong>Ảnh nền mục 01 nhận thêm kiểu tên file có gạch dưới</strong> Ngoài <code>anchor-innocent-maid.webp</code>, trang giờ nhận cả <code>Anchor_Innocent_Maid.webp</code> (viết hoa như tên NIKKE, cách bằng dấu gạch dưới, bỏ dấu hai chấm và phần trong ngoặc).</li>
+      <li><b>10:54</b> <strong>Thêm nút chuyển nền sáng / nền tối</strong> Nút ☾ / ☀ nằm cố định ở góc phải dưới, ngay trên nút lên đầu trang. Lần đầu mở trang sẽ theo cài đặt sáng/tối của máy, sau đó trang nhớ lựa chọn của bạn. Ở nền tối, các thanh tiêu đề chuyển sang xám đậm, nhãn vàng vẫn giữ chữ đen cho dễ đọc.</li>
+<li><b>10:46</b> <strong>Ảnh nền mục 01 nhận thêm kiểu tên file có gạch dưới</strong> Ngoài <code>anchor-innocent-maid.webp</code>, trang giờ nhận cả <code>Anchor_Innocent_Maid.webp</code> (viết hoa như tên NIKKE, cách bằng dấu gạch dưới, bỏ dấu hai chấm và phần trong ngoặc).</li>
 <li><b>03:50</b> <strong>Thêm ảnh NIKKE làm nền cho 24 thẻ ở mục 01</strong> Ảnh lấy từ thư mục <code>nikke/</code> (tên file theo tên NIKKE, vd <code>mast-romantic-maid.webp</code>), đặt ở góc phải thẻ, mờ nhẹ và nhạt dần sang trái. Tên, loại và lý do được dồn sang trái, dòng Skill/Cube/Overload bắt đầu dưới cằm nên chữ không đè lên mặt. Thẻ nào thiếu ảnh thì giữ nguyên như cũ.</li>
 <li><b>03:20</b> <strong>Thêm gợi ý Overload (Gear Investment) cho từng NIKKE</strong> (bạn yêu cầu). Mục 06: thêm cột <strong>Overload</strong> cho cả 81 con Đã Sync: số dòng cần săn (ELE, ATK, Max Ammo, Charge Speed…), dòng phụ, dòng bắt buộc và mức ưu tiên đầu tư, lấy từ mục Gear Investment trên trang từng NIKKE của Prydwen. Khi Prydwen không ghi dòng cụ thể thì dùng thứ tự điểm Overload của nikke.gg (có ghi "(nikke.gg)"); 12 con mạnh lên nhờ Treasure (Helm, Privaty, Moran, Tove, Drake, Sugar…) ghi theo bản Treasure với tiền tố "Tr:". Mục 01, 08, 09, 10: mỗi thẻ NIKKE có thêm dòng "Overload:" (3 thẻ đã ghi sẵn Overload trong dòng Skill giữ nguyên). Thêm chú thích cách đọc và quy tắc chung (thứ tự OL Mũ &gt; Găng &gt; Giáp &gt; Giày, giá trị dòng tối thiểu). Snow White: Innocent Days, Mica: Snow Buddy, Sin, Signal chưa có khuyến nghị ở cả hai nguồn. Thêm nguồn [41].</li>
       <li><b>02:30</b> <strong>Thêm cube cho từng NIKKE</strong> (bạn yêu cầu). Mục 06: thêm cột <strong>Cube</strong> cho cả 81 con Đã Sync (cube tốt nhất / thay thế, kèm cube khi có Treasure và cube PvP nếu khác), lấy từ trang nhân vật nikke.gg; Rapunzel: Sanctuary và Scarlet: Goddeath theo Prydwen. Mục 01, 08, 09, 10: mỗi thẻ NIKKE có thêm dòng "Cube:" lấy từ cùng bảng (3 thẻ ở mục 01 đã ghi cube trong dòng Skill thì giữ nguyên). Thêm chú thích cách đọc cột Cube ở mục 06. Bảng Chưa Sync để trống vì đang LV 01.</li>
