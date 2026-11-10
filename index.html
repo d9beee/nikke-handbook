@@ -64,12 +64,20 @@ section.sec{padding:40px 0 8px;border-bottom:1px solid var(--line)}
 table{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 8px}
 th{font-family:var(--head);text-transform:uppercase;letter-spacing:.06em;font-size:11px;font-weight:600;text-align:left;color:var(--ink2);border-bottom:1.5px solid var(--ink);padding:6px 8px}
 td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-tr.b1 td{background:rgba(201,151,31,.13)}
 tr.b2 td{background:rgba(143,150,163,.12)}
 .mk{display:inline-block;width:16px;font-size:12px}
 .b1 .mk::before{content:"★";color:var(--gold)}
 .b2 .mk::before{content:"◆";color:var(--silver)}
 .b3 .mk::before{content:"○";color:var(--ink2)}
+/* trụ cột nổi hơn các nhóm khác: nền vàng đậm, vạch vàng bên trái, tên đậm, ★ to, nhãn TRỤ CỘT */
+tr.b1 td{background:rgba(201,151,31,.24)}
+tr.b1 td:first-child{box-shadow:inset 4px 0 var(--gold)}
+tr.b1 .nmc{font-weight:700}
+.b1 .mk{font-size:15px}
+.pil{display:inline-block;font-family:var(--head);font-size:10px;font-weight:600;letter-spacing:.06em;padding:0 5px;margin-left:6px;background:var(--gold);color:var(--ink);vertical-align:1px;white-space:nowrap;font-style:normal}
+/* vai trò theo chế độ chơi (nikke.gg ≥ SS ở chế độ đó) */
+.ro{display:inline-block;font-family:var(--head);font-size:9.5px;font-weight:600;letter-spacing:.05em;padding:0 4px;margin-left:4px;color:#fff;vertical-align:1px;white-space:nowrap;font-style:normal}
+.ro.rs{background:#2b6cb0}.ro.rb{background:#9b2c2c}.ro.rp{background:#6b46c1}
 /* chips */
 .code{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:1px 8px 1px 6px;border:1px solid var(--cc);background:color-mix(in srgb,var(--cc) 13%,transparent);white-space:nowrap}
 .code::before{content:"";width:16px;height:16px;flex-shrink:0;background:var(--ci) center/contain no-repeat}
@@ -93,6 +101,16 @@ tr.b2 td{background:rgba(143,150,163,.12)}
 .nk .x{position:absolute;top:6px;right:8px;font-size:11px;color:var(--cc);font-family:var(--head)}
 .nk .sk{display:block;margin-top:6px;padding-top:5px;border-top:1px dashed var(--line);font-size:11px;color:var(--ink2);line-height:1.4}
 .nk .sk b{font-family:var(--head);font-weight:600;color:var(--ink)}
+.nk .cb{display:block;margin-top:4px;font-size:11px;color:var(--ink2);line-height:1.35}
+.nk .cb b{font-family:var(--head);font-weight:600;color:var(--ink)}
+/* thẻ mục 01 có ảnh NIKKE: ảnh nằm góc phải, mờ nhẹ, mặt luôn nằm cạnh khối tên chứ không bị chữ đè */
+.nk.hasbg{overflow:hidden;container-type:inline-size}
+.nk.hasbg .bg{position:absolute;top:0;right:0;width:44%;height:88cqw;background:var(--img) center top/100% auto no-repeat;filter:blur(.8px);opacity:.62;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 50%,transparent 92%);mask-composite:intersect}
+.nk.hasbg>*:not(.bg):not(.x){position:relative;z-index:1}
+.nk.hasbg .x{z-index:2;background:rgba(255,255,255,.85);padding:0 4px}
+.nk.hasbg .top{padding-right:40%;min-height:40cqw}
+td.cbc{font-size:12px;color:var(--ink2);min-width:150px}
+td.grc{font-size:12px;color:var(--ink2);min-width:210px}
 .st{display:inline-block;font-family:var(--head);font-size:10px;letter-spacing:.06em;padding:0 5px;margin-left:6px;border:1px solid var(--ink2);color:var(--ink2);vertical-align:1px;white-space:nowrap;font-style:normal}
 .st.in{border-color:var(--c-wind);color:var(--c-wind)}
 .st.out{border-color:var(--must);color:var(--must)}
@@ -237,7 +255,9 @@ html,body{overflow-x:clip;max-width:100%}
   table.cards td:nth-child(7){flex:1 0 auto}
   table.cards td:nth-child(n+6)::before{content:attr(data-l) " ";font-family:var(--head);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   table.cards td:nth-child(n+8){font-size:13px}
-  #roster table.cards td:nth-child(8){flex-basis:100%}
+  #roster table.cards td:nth-child(8),#roster table.cards td:nth-child(9),#roster table.cards td:nth-child(10){flex-basis:100%}
+  #roster table.cards tr.b1{background:rgba(201,151,31,.24);box-shadow:inset 4px 0 var(--gold);padding-left:8px}
+  #roster table.cards tr.b1 td{background:transparent;box-shadow:none}
   .mb-p table.cards td:nth-child(n+8){margin-right:6px}
   td,th{padding:5px 6px}
   .swipe{display:block}
@@ -287,76 +307,76 @@ html,body{overflow-x:clip;max-width:100%}
 </svg>
 <div class="wrap">
 
-<div class="topbar"><span><b>Commander File</b> · Goddess of Victory: NIKKE</span><span>Cập nhật 07/11/2026</span></div>
+<div class="topbar"><span><b>Commander File</b> · Goddess of Victory: NIKKE</span><span>Cập nhật 10/11/2026</span></div>
 
 <header class="hero">
   <h1><span>Hồ sơ chỉ huy</span>Sổ tay<br>NIKKE</h1>
-  <p><strong>Bạn có 111 NIKKE SSR. 8 con là trụ cột nên dồn tài nguyên trước: chúng có mặt trong ít nhất 3/12 đội Anomaly Interception và đều PHẢI CÓ Collection.</strong> Sổ tay gồm cách đọc thẻ, cơ chế tăng sức mạnh, toàn bộ roster, quy tắc vị trí đứng và Burst, cơ chế từng boss cùng cách khắc chế, và đội hình cho 5 boss Anomaly Interception cùng Story/Campaign.</p>
+  <p><strong>Bạn có 112 NIKKE SSR. 8 con là trụ cột nên dồn tài nguyên trước: chúng có mặt trong ít nhất 3/13 đội Anomaly Interception và đều PHẢI CÓ Collection.</strong> Sổ tay gồm cách đọc thẻ, cơ chế tăng sức mạnh, toàn bộ roster, quy tắc vị trí đứng và Burst, cơ chế từng boss cùng cách khắc chế, và đội hình cho 5 boss Anomaly Interception cùng Story/Campaign.</p>
 </header>
 
 <div class="metrics">
-  <div class="metric"><div class="v">111</div><div class="l">NIKKE SSR</div><div class="n">đã loại SR và R</div></div>
-  <div class="metric"><div class="v">81</div><div class="l">Ở LV 257</div><div class="n">30 con LV 01 · cập nhật Synchro 07/11</div></div>
-  <div class="metric"><div class="v">8</div><div class="l">Trụ cột nên build</div><div class="n">+8 con chuyên boss</div></div>
+  <div class="metric"><div class="v">112</div><div class="l">NIKKE SSR</div><div class="n">đã loại SR và R</div></div>
+  <div class="metric"><div class="v">81</div><div class="l">Ở LV 257</div><div class="n">31 con LV 01 · cập nhật Synchro 08/11</div></div>
+  <div class="metric"><div class="v">8</div><div class="l">Trụ cột nên build</div><div class="n">+10 con chuyên boss</div></div>
   <div class="metric"><div class="v">19</div><div class="l">PHẢI CÓ Collection</div><div class="n">theo điểm PvE Prydwen</div></div>
 </div>
 
 <div class="front">
 <a class="today-box" href="#tower"><span class="lb">Tribe Tower hôm nay</span><span class="dy" id="tb-day">Xem lịch</span><span class="tw" id="tb-tw"></span><span class="go">Xem đội hình ↓</span></a>
 <div class="meta-box" id="meta">
-  <div class="mb-h"><span class="lb">NIKKE META<small class="mb-t" title="nikke.gg cập nhật số liệu khoảng 04:00 cùng ngày">Cập nhật lần cuối: 07/11/2026 · 12:16</small></span><button type="button" class="mb-tab" data-p="mp-nk" aria-selected="true">NIKKE</button><button type="button" class="mb-tab" data-p="mp-sq" aria-selected="false">Squad</button><button type="button" class="mb-tab" data-p="mp-tr" aria-selected="false">Treasure</button><button type="button" class="mb-re" id="cmd-meta" title="Cập Nhật NIKKE Meta" aria-label="Cập Nhật NIKKE Meta"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg></button></div>
+  <div class="mb-h"><span class="lb">NIKKE META<small class="mb-t" title="nikke.gg cập nhật số liệu khoảng 04:00 cùng ngày">Cập nhật lần cuối: 10/11/2026 · 01:48</small></span><button type="button" class="mb-tab" data-p="mp-nk" aria-selected="true">NIKKE</button><button type="button" class="mb-tab" data-p="mp-sq" aria-selected="false">Squad</button><button type="button" class="mb-tab" data-p="mp-tr" aria-selected="false">Treasure</button><button type="button" class="mb-re" id="cmd-meta" title="Cập Nhật NIKKE Meta" aria-label="Cập Nhật NIKKE Meta"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg></button></div>
   <div class="mb-p" id="mp-nk">
-    <p class="mb-note">% người chơi đã build (tổng skill ≥ 20, ≥ 3 món Overload). Giảm mạnh tuần này: Rouge −2,1 · D: Killer Wife −1,8 · Modernia −1,7 · Alice −1,6.</p>
+    <p class="mb-note">% người chơi đã build (tổng skill ≥ 20, ≥ 3 món Overload). Tăng tuần này: Laplace: Ultimate Hero +0,6. Giảm mạnh: EVE, Ade: Agent Bunny, Rouge, Soda: Twinkling Bunny (cùng −1,0).</p>
     <table><thead><tr><th>#</th><th>NIKKE</th><th>Build</th><th>Tuần</th><th>Bạn</th></tr></thead><tbody>
-      <tr><td>1</td><td>Anis: Star</td><td>84%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
-      <tr><td>2</td><td>Rapi: Red Hood</td><td>84%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
+      <tr><td>1</td><td>Anis: Star</td><td>84%</td><td class="dn">▼0,3</td><td class="ok">✔</td></tr>
+      <tr><td>2</td><td>Rapi: Red Hood</td><td>83%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
       <tr class="miss"><td>3</td><td>Crown</td><td>82%</td><td class="dn">▼0,2</td><td class="no">Thiếu</td></tr>
-      <tr><td>4</td><td>Helm</td><td>81%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
-      <tr><td>5</td><td>Nayuta</td><td>80%</td><td class="dn">▼0,3</td><td class="ok">✔</td></tr>
-      <tr><td>6</td><td>Siren</td><td>78%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
+      <tr><td>4</td><td>Helm</td><td>81%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
+      <tr><td>5</td><td>Nayuta</td><td>80%</td><td class="dn">▼0,1</td><td class="ok">✔</td></tr>
+      <tr><td>6</td><td>Siren</td><td>78%</td><td class="dn">▼0,4</td><td class="ok">✔</td></tr>
       <tr><td>7</td><td>Snow White: Heavy Arms</td><td>78%</td><td class="dn">▼0,4</td><td class="ok">✔</td></tr>
-      <tr><td>8</td><td>Cinderella</td><td>77%</td><td class="dn">▼0,3</td><td class="ok">✔</td></tr>
-      <tr><td>9</td><td>Neon: Vision Eye</td><td>76%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
-      <tr><td>10</td><td>Liberalio</td><td>76%</td><td class="dn">▼0,7</td><td class="ok">✔</td></tr>
-      <tr class="miss"><td>11</td><td>Cinderella: Crystal Wave</td><td>76%</td><td class="dn">▼0,4</td><td class="no">Thiếu</td></tr>
-      <tr class="miss"><td>12</td><td>Scarlet: Black Shadow</td><td>74%</td><td class="dn">▼0,8</td><td class="no">Thiếu</td></tr>
-      <tr class="miss"><td>13</td><td>Marian: Queen <span class="tr">mới</span></td><td>73%</td><td class="up">▲10,9</td><td class="no">Thiếu</td></tr>
-      <tr><td>14</td><td>Red Hood</td><td>72%</td><td class="dn">▼1,4</td><td class="ok">✔</td></tr>
-      <tr><td>15</td><td>Mast: Romantic Maid</td><td>72%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
+      <tr><td>8</td><td>Cinderella</td><td>77%</td><td class="dn">▼0,2</td><td class="ok">✔</td></tr>
+      <tr><td>9</td><td>Neon: Vision Eye</td><td>76%</td><td class="dn">▼0,4</td><td class="ok">✔</td></tr>
+      <tr><td>10</td><td>Liberalio</td><td>76%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
+      <tr class="miss"><td>11</td><td>Cinderella: Crystal Wave</td><td>75%</td><td class="dn">▼0,4</td><td class="no">Thiếu</td></tr>
+      <tr class="miss"><td>12</td><td>Marian: Queen <span class="tr">mới</span></td><td>74%</td><td class="up">▲6,8</td><td class="no">Thiếu</td></tr>
+      <tr><td>13</td><td>Scarlet: Black Shadow</td><td>74%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
+      <tr><td>14</td><td>Red Hood</td><td>72%</td><td class="dn">▼0,9</td><td class="ok">✔</td></tr>
+      <tr><td>15</td><td>Mast: Romantic Maid</td><td>72%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
       <tr><td>16</td><td>Privaty</td><td>71%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
-      <tr><td>17</td><td>Moran</td><td>71%</td><td class="dn">▼0,8</td><td class="ok">✔</td></tr>
-      <tr><td>18</td><td>Alice</td><td>68%</td><td class="dn">▼1,6</td><td class="ok">✔</td></tr>
-      <tr class="miss"><td>19</td><td>Dorothy: Serendipity</td><td>67%</td><td class="dn">▼0,8</td><td class="no">Thiếu</td></tr>
-      <tr><td>20</td><td>Liter</td><td>66%</td><td class="dn">▼0,7</td><td class="ok">✔</td></tr>
+      <tr><td>17</td><td>Moran</td><td>71%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
+      <tr><td>18</td><td>Alice</td><td>68%</td><td class="dn">▼0,9</td><td class="ok">✔</td></tr>
+      <tr class="miss"><td>19</td><td>Dorothy: Serendipity</td><td>67%</td><td class="dn">▼0,7</td><td class="no">Thiếu</td></tr>
+      <tr><td>20</td><td>Liter</td><td>66%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
       <tr class="miss"><td>21</td><td>Mihara: Bonding Chain</td><td>66%</td><td class="dn">▼0,7</td><td class="no">Thiếu</td></tr>
-      <tr><td>22</td><td>Anchor: Innocent Maid</td><td>63%</td><td class="dn">▼0,7</td><td class="ok">✔</td></tr>
-      <tr><td>23</td><td>Naga</td><td>63%</td><td class="dn">▼0,7</td><td class="ok">✔</td></tr>
-      <tr><td>24</td><td>Drake</td><td>61%</td><td class="dn">▼0,8</td><td class="ok">✔</td></tr>
-      <tr><td>25</td><td>Anis: Sparkling Summer</td><td>61%</td><td class="dn">▼0,8</td><td class="ok">✔</td></tr>
+      <tr><td>22</td><td>Naga</td><td>63%</td><td class="dn">▼0,4</td><td class="ok">✔</td></tr>
+      <tr><td>23</td><td>Anchor: Innocent Maid</td><td>63%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
+      <tr><td>24</td><td>Drake</td><td>61%</td><td class="dn">▼0,5</td><td class="ok">✔</td></tr>
+      <tr><td>25</td><td>Anis: Sparkling Summer</td><td>61%</td><td class="dn">▼0,6</td><td class="ok">✔</td></tr>
     </tbody></table>
   </div>
   <div class="mb-p" id="mp-sq" hidden>
-    <p class="mb-note"><b>Bộ 3 cốt lõi</b>: 3 con hay đứng chung đội, tính trên 5.662 đội.</p>
+    <p class="mb-note"><b>Bộ 3 cốt lõi</b>: 3 con hay đứng chung đội, tính trên 5.672 đội.</p>
     <table><thead><tr><th>#</th><th>Bộ 3</th><th>Tỉ lệ</th><th>Bạn</th></tr></thead><tbody>
       <tr class="miss"><td>1</td><td>Anis: Star + Crown + Rapi: Red Hood</td><td>16%</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>2</td><td>Siren + Crown + Helm</td><td>4,6%</td><td class="no">Thiếu Crown</td></tr>
-      <tr><td>3</td><td>Anis: Star + Helm + Snow White: HA</td><td>3,7%</td><td class="ok">✔ Đủ</td></tr>
-      <tr><td>4</td><td>Siren + Cinderella + Rapi: Red Hood</td><td>2,8%</td><td class="ok">✔ Đủ</td></tr>
-      <tr><td>5</td><td>Nayuta + Rapi: Red Hood + Snow White: HA</td><td>2,8%</td><td class="ok">✔ Đủ</td></tr>
-      <tr class="miss"><td>6</td><td>Crown + Red Hood + Scarlet: Black Shadow</td><td>2,7%</td><td class="no">Thiếu 2</td></tr>
-      <tr><td>7</td><td>Siren + Nayuta + Liberalio</td><td>2,6%</td><td class="ok">✔ Đủ</td></tr>
-      <tr class="miss"><td>8</td><td>Anis: Star + Nayuta + Cinderella: CW</td><td>2,1%</td><td class="no">Thiếu CW</td></tr>
+      <tr class="miss"><td>2</td><td>Siren + Crown + Helm</td><td>4,5%</td><td class="no">Thiếu Crown</td></tr>
+      <tr><td>3</td><td>Anis: Star + Helm + Snow White: HA</td><td>3,6%</td><td class="ok">✔ Đủ</td></tr>
+      <tr><td>4</td><td>Nayuta + Rapi: Red Hood + Snow White: HA</td><td>2,7%</td><td class="ok">✔ Đủ</td></tr>
+      <tr><td>5</td><td>Siren + Cinderella + Rapi: Red Hood</td><td>2,7%</td><td class="ok">✔ Đủ</td></tr>
+      <tr class="miss"><td>6</td><td>Crown + Red Hood + Scarlet: Black Shadow</td><td>2,7%</td><td class="no">Thiếu Crown</td></tr>
+      <tr><td>7</td><td>Siren + Nayuta + Liberalio</td><td>2,5%</td><td class="ok">✔ Đủ</td></tr>
+      <tr class="miss"><td>8</td><td>Anis: Star + Neon: VE + Marian: Queen <span class="tr">mới</span></td><td>2,2%</td><td class="no">Thiếu Marian</td></tr>
     </tbody></table>
     <p class="mb-note"><b>Đội 5 con</b>: chép được nguyên đội, đếm theo số người chơi. Cả 8 đội đều có Crown.</p>
     <table><thead><tr><th>#</th><th>Đội (theo thứ tự Burst)</th><th>Người</th><th>Bạn</th></tr></thead><tbody>
-      <tr class="miss"><td>1</td><td>Anis: Star · Crown · Helm · Rapi: RH · Snow White: HA</td><td>116</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>2</td><td>Anis: Star · Crown · Mast: RM · Rapi: RH · Snow White: HA</td><td>77</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>3</td><td>Anis: Star · Crown · Rapi: RH · Neon: VE · Marian: Queen</td><td>48</td><td class="no">Thiếu 2</td></tr>
-      <tr class="miss"><td>4</td><td>Anis: Star · Crown · Privaty · Rapi: RH · Snow White: HA</td><td>38</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>5</td><td>Siren · Crown · Helm · Scarlet: BS · Rapi: RH</td><td>34</td><td class="no">Thiếu 2</td></tr>
-      <tr class="miss"><td>6</td><td>Anis: Star · Crown · Helm · Rapi: RH · Neon: VE</td><td>33</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>7</td><td>Siren · Crown · Helm · Cinderella · Rapi: RH</td><td>32</td><td class="no">Thiếu Crown</td></tr>
-      <tr class="miss"><td>8</td><td>Anis: Star · Crown · Rapi: RH · Snow White: HA · Neon: VE</td><td>32</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>1</td><td>Anis: Star · Crown · Helm · Rapi: RH · Snow White: HA</td><td>112</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>2</td><td>Anis: Star · Crown · Mast: RM · Rapi: RH · Snow White: HA</td><td>75</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>3</td><td>Anis: Star · Crown · Rapi: RH · Neon: VE · Marian: Queen</td><td>56</td><td class="no">Thiếu 2</td></tr>
+      <tr class="miss"><td>4</td><td>Anis: Star · Crown · Privaty · Rapi: RH · Snow White: HA</td><td>35</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>5</td><td>Siren · Crown · Helm · Scarlet: BS · Rapi: RH</td><td>33</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>6</td><td>Anis: Star · Crown · Rapi: RH · Snow White: HA · Neon: VE</td><td>32</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>7</td><td>Siren · Crown · Helm · Cinderella · Rapi: RH</td><td>31</td><td class="no">Thiếu Crown</td></tr>
+      <tr class="miss"><td>8</td><td>Anis: Star · Crown · Helm · Rapi: RH · Neon: VE</td><td>31</td><td class="no">Thiếu Crown</td></tr>
     </tbody></table>
   </div>
   <div class="mb-p" id="mp-tr" hidden>
@@ -365,27 +385,27 @@ html,body{overflow-x:clip;max-width:100%}
       <tr><td>1</td><td>Helm</td><td>88%</td><td>94%</td><td class="ok">✔</td></tr>
       <tr><td>2</td><td>Moran</td><td>81%</td><td>97%</td><td class="ok">✔</td></tr>
       <tr><td>3</td><td>Drake</td><td>79%</td><td>100%</td><td class="ok">✔</td></tr>
-      <tr><td>4</td><td>Privaty</td><td>79%</td><td>95%</td><td class="ok">✔</td></tr>
+      <tr><td>4</td><td>Privaty</td><td>78%</td><td>95%</td><td class="ok">✔</td></tr>
       <tr><td>5</td><td>Tove</td><td>71%</td><td>98%</td><td class="ok">✔</td></tr>
       <tr><td>6</td><td>Miranda</td><td>67%</td><td>97%</td><td class="ok">✔</td></tr>
-      <tr><td>7</td><td>Flora</td><td>63%</td><td>92%</td><td class="ok">✔</td></tr>
-      <tr><td>8</td><td>Laplace</td><td>58%</td><td>99%</td><td class="ok">✔</td></tr>
+      <tr><td>7</td><td>Flora</td><td>64%</td><td>92%</td><td class="ok">✔</td></tr>
+      <tr><td>8</td><td>Laplace</td><td>57%</td><td>99%</td><td class="ok">✔</td></tr>
       <tr><td>9</td><td>Sugar</td><td>57%</td><td>92%</td><td class="ok">✔</td></tr>
       <tr><td>10</td><td>Centi</td><td>50%</td><td>87%</td><td class="ok">✔</td></tr>
-      <tr><td>11</td><td>Rosanna</td><td>45%</td><td>55%</td><td class="ok">✔</td></tr>
-      <tr><td>12</td><td>Exia</td><td>43%</td><td>99%</td><td class="ok">✔</td></tr>
+      <tr><td>11</td><td>Rosanna</td><td>45%</td><td>57%</td><td class="tr">LV 01</td></tr>
+      <tr><td>12</td><td>Exia</td><td>42%</td><td>99%</td><td class="ok">✔</td></tr>
       <tr><td>13</td><td>Viper</td><td>42%</td><td>97%</td><td class="ok">✔</td></tr>
-      <tr><td>14</td><td>Zwei</td><td>41%</td><td>97%</td><td class="ok">✔</td></tr>
-      <tr><td>15</td><td>Phantom</td><td>35%</td><td>72%</td><td class="ok">✔</td></tr>
+      <tr><td>14</td><td>Zwei</td><td>41%</td><td>96%</td><td class="ok">✔</td></tr>
+      <tr><td>15</td><td>Phantom</td><td>35%</td><td>73%</td><td class="ok">✔</td></tr>
       <tr><td>16</td><td>Bay</td><td>33%</td><td>95%</td><td class="ok">✔</td></tr>
       <tr><td>17</td><td>Diesel</td><td>33%</td><td>97%</td><td class="ok">✔</td></tr>
       <tr><td>18</td><td>Julia</td><td>26%</td><td>96%</td><td class="tr">LV 01</td></tr>
       <tr><td>19</td><td>Frima</td><td>25%</td><td>97%</td><td class="tr">LV 01</td></tr>
       <tr><td>20</td><td>Poli</td><td>22%</td><td>94%</td><td class="ok">✔</td></tr>
-      <tr><td>21</td><td>Milk</td><td>19%</td><td>95%</td><td class="ok">✔</td></tr>
+      <tr><td>21</td><td>Milk</td><td>19%</td><td>94%</td><td class="ok">✔</td></tr>
     </tbody></table>
   </div>
-  <div class="mb-f"><span id="cmd-meta-msg">Raids &amp; bosses · 12.144 chỉ huy, 7.107 union · roster 28/10–06/11 · cập nhật 07/11/2026</span> <a class="cite" href="https://nikke.gg/meta/" target="_blank">[31]</a><br>Chỉ là tỉ lệ người chơi build, game không công bố tỉ lệ thắng. Bấm ↻ để copy lệnh cập nhật.</div>
+  <div class="mb-f"><span id="cmd-meta-msg">Raids &amp; bosses · 12.206 chỉ huy, 7.160 union · roster 31/10–09/11 · cập nhật 10/11/2026</span> <a class="cite" href="https://nikke.gg/meta/" target="_blank">[31]</a><br>Chỉ là tỉ lệ người chơi build, game không công bố tỉ lệ thắng. Bấm ↻ để copy lệnh cập nhật.</div>
 </div>
 </div>
 <script>(function(){
@@ -411,46 +431,47 @@ html,body{overflow-x:clip;max-width:100%}
 })();</script>
 
 <nav class="toc">
-  <a href="#build">01 Đáng build</a><a href="#card">02 Đọc thẻ</a><a href="#power">03 Sức mạnh</a><a href="#coll">04 Collection</a><a href="#stats">05 Thống kê</a><a href="#roster">06 NIKKE đã sở hữu</a><a href="#burst">07 Vị trí &amp; Burst</a><a href="#ai">08 Anomaly Interception</a><a href="#story">09 Story / Campaign</a><a href="#tower">10 Tribe Tower</a><a href="#notes">Ghi chú</a>
+  <a href="#build">01 Đáng build</a><a href="#wish">W Revise Wishlist</a><a href="#card">02 Đọc thẻ</a><a href="#power">03 Sức mạnh</a><a href="#coll">04 Collection</a><a href="#stats">05 Thống kê</a><a href="#roster">06 NIKKE đã sở hữu</a><a href="#burst">07 Vị trí &amp; Burst</a><a href="#ai">08 Anomaly Interception</a><a href="#story">09 Story / Campaign</a><a href="#tower">10 Tribe Tower</a><a href="#notes">Ghi chú</a>
 </nav>
 
 <section class="sec" id="build">
-  <div class="sec-head"><span class="sec-no">01</span><div><h2>NIKKE đáng đầu tư build</h2><p>Xếp theo số lần xuất hiện trong 12 đội Anomaly Interception ở mục 08, đối chiếu thêm điểm Collection</p></div></div>
+  <div class="sec-head"><span class="sec-no">01</span><div><h2>NIKKE đáng đầu tư build</h2><p>Xếp theo số lần xuất hiện trong 13 đội Anomaly Interception ở mục 08, đối chiếu thêm điểm Collection</p></div></div>
   <div class="tiers">
     <div class="tier">
-      <div class="tier-h"><span>★ Trụ cột: build trước</span><small>Có mặt trong 3–6/12 đội, đều PHẢI CÓ Collection</small></div>
+      <div class="tier-h"><span>★ Trụ cột: build trước</span><small>Có mặt trong 3–6/13 đội, đều PHẢI CÓ Collection</small></div>
       <div class="tier-b">
-        <div class="nk water"><span class="x">6/12</span><span class="nm">Mast: Romantic Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · MG</span><span class="why">Có ở cả 5 boss · Collection 10</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 7/7/7 → 10/10/10<br>Burst đáng lên 10</span></div>
-        <div class="nk fire"><span class="x">6/12</span><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · MG</span><span class="why">Gánh sát thương Indivilia, Ultra; vào cả đội Absolute · Collection 10</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 7/7/7 → 10/10/10<br>Làm Burst I thì nâng S1 trước</span></div>
-        <div class="nk elec"><span class="x">4/12</span><span class="nm">Anis: Star</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Burst I chính cho 4 boss · Collection 10</span><span class="sk"><b>Skill: S1 ≥ S2</b> · 7/7/7 → 10/10/10<br>Cả 3 skill đều quan trọng</span></div>
-        <div class="nk water"><span class="x">4/12</span><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · RL</span><span class="why">Thay Crown ở 3 boss · Collection 8</span><span class="sk"><b>Skill: S1 ≥ S2</b> · 7/7/4 → 10/10/7<br>Burst cấp 7 là đủ</span></div>
-        <div class="nk wind"><span class="x">4/12</span><span class="nm">Siren (Little Mermaid)</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter · SMG</span><span class="why">Burst I số 1 cho Kraken · Collection 9</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/7/4 → 10/10/7<br>Burst không cần lên 10</span></div>
-        <div class="nk fire"><span class="x">4/12</span><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">DPS xuyên giáp Kraken, Indivilia · Collection 9</span><span class="sk"><b>Skill: Burst &gt; S1 &gt; S2</b> · 7/4/7 → 10/4/10<br>S2 giữ cấp 4</span></div>
-        <div class="nk iron"><span class="x">4/12</span><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Burst III dự phòng, giải QTE Ultra · Collection 9</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 5/7/7 → 10/10/10<br>Giữ S1 thấp hơn S2 khoảng 1 cấp</span></div>
-        <div class="nk wind"><span class="x">3/12</span><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · SMG</span><span class="why">Burst II 20s linh hoạt · Collection 10</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/4–7* → 10/7/10<br>S1 phải lên tối đa</span></div>
+        <div class="nk water"><span class="x">6/13</span><span class="nm">Mast: Romantic Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · MG</span><span class="why">Có ở cả 5 boss · Collection 10</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 7/7/7 → 10/10/10<br>Burst đáng lên 10</span></div>
+        <div class="nk fire"><span class="x">6/13</span><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · MG</span><span class="why">Gánh sát thương Indivilia, Ultra; vào cả đội Absolute · Collection 10</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 7/7/7 → 10/10/10<br>Làm Burst I thì nâng S1 trước</span></div>
+        <div class="nk elec"><span class="x">4/13</span><span class="nm">Anis: Star</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Burst I chính cho 4 boss · Collection 10</span><span class="sk"><b>Skill: S1 ≥ S2</b> · 7/7/7 → 10/10/10<br>Cả 3 skill đều quan trọng</span></div>
+        <div class="nk water"><span class="x">4/13</span><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · RL</span><span class="why">Thay Crown ở 3 boss · Collection 8</span><span class="sk"><b>Skill: S1 ≥ S2</b> · 7/7/4 → 10/10/7<br>Burst cấp 7 là đủ</span></div>
+        <div class="nk wind"><span class="x">4/13</span><span class="nm">Siren (Little Mermaid)</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter · SMG</span><span class="why">Burst I số 1 cho Kraken · Collection 9</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/7/4 → 10/10/7<br>Burst không cần lên 10</span></div>
+        <div class="nk fire"><span class="x">4/13</span><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">DPS xuyên giáp Kraken, Indivilia (B, D) · Collection 9</span><span class="sk"><b>Skill: Burst &gt; S1 &gt; S2</b> · 7/4/7 → 10/4/10<br>S2 giữ cấp 4</span></div>
+        <div class="nk iron"><span class="x">4/13</span><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Burst III dự phòng, giải QTE Ultra · Collection 9</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 5/7/7 → 10/10/10<br>Giữ S1 thấp hơn S2 khoảng 1 cấp</span></div>
+        <div class="nk wind"><span class="x">3/13</span><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · SMG</span><span class="why">Burst II 20s linh hoạt · Collection 10</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/4–7* → 10/7/10<br>S1 phải lên tối đa</span></div>
       </div>
     </div>
     <div class="tier">
       <div class="tier-h"><span>◆ Chuyên boss: build khi farm boss đó</span><small>Chỉ dùng cho 1–2 boss</small></div>
       <div class="tier-b">
-        <div class="nk elec"><span class="x">4/12</span><span class="nm">Naga</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · SG</span><span class="why">Hồi máu, sửa giáp: Ultra, Mirror Container · Collection 7</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/5/7 → 10/7/10<br>Burst chỉ đáng nâng cao khi có Tia</span></div>
-        <div class="nk wind"><span class="x">2/12</span><span class="nm">Liberalio</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Kraken · Collection 10</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/7 → 10/10/7<br>Dùng cả ở Campaign thì Burst lên 10</span></div>
-        <div class="nk water"><span class="x">2/12</span><span class="nm">Snow White: Heavy Arms</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Harvester · Collection 10</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/7 → 10/10/7<br>Burst lên 10 là tùy chọn</span></div>
-        <div class="nk elec"><span class="x">2/12</span><span class="nm">Cinderella</span><span class="meta"><span class="bu">III</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Mirror Container · Collection 10</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/7 → 10/7/10<br>S2 nâng sau cùng</span></div>
-        <div class="nk elec"><span class="x">2/12</span><span class="nm">Ada Wong</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · RL</span><span class="why">Mirror Container · Collection 9</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/4 → 10/10/4<br>Burst yếu, giữ cấp 4</span></div>
-        <div class="nk iron"><span class="x">1/12</span><span class="nm">Tia</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Khiên chặn Shock Wave, Toxic Shell của Ultra; đi cặp Naga · Collection 5</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/4 → 10/5/4<br>Burst chỉ tạo khiên, giữ cấp 4</span></div>
-        <div class="nk fire"><span class="x">1/12</span><span class="nm">Eunhwa: Tactical Upgrade</span><span class="meta"><span class="bu">II</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Mới có. Mảnh ghép đội Absolute (Emma: TU, Vesti: TU): Indivilia C, Story D</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 4/7/7 → 7/10/10<br>Theo Prydwen; nikke.gg giữ Burst ở 7</span></div>
-        <div class="nk water"><span class="x">1/12</span><span class="nm">Quency: Escape Queen</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SMG</span><span class="why">Đã vào Synchro. Harvester B, đi cùng cặp Maid</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 5/7/7 → 7/10/10<br>S2 nâng càng sớm càng tốt</span></div>
+        <div class="nk elec"><span class="x">4/13</span><span class="nm">Naga</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · SG</span><span class="why">Hồi máu, sửa giáp: Ultra, Mirror Container · Collection 7</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/5/7 → 10/7/10<br>Burst chỉ đáng nâng cao khi có Tia</span></div>
+        <div class="nk wind"><span class="x">2/13</span><span class="nm">Liberalio</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Kraken · Collection 10</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/7 → 10/10/7<br>Dùng cả ở Campaign thì Burst lên 10</span></div>
+        <div class="nk water"><span class="x">2/13</span><span class="nm">Snow White: Heavy Arms</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Harvester · Collection 10</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/7 → 10/10/7<br>Burst lên 10 là tùy chọn</span></div>
+        <div class="nk elec"><span class="x">2/13</span><span class="nm">Cinderella</span><span class="meta"><span class="bu">III</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Mirror Container · Collection 10</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/7 → 10/7/10<br>S2 nâng sau cùng</span></div>
+        <div class="nk elec"><span class="x">2/13</span><span class="nm">Ada Wong</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · RL</span><span class="why">Mirror Container · Collection 9</span><span class="sk"><b>Skill: S1 = S2</b> · 7/7/4 → 10/10/4<br>Burst yếu, giữ cấp 4</span></div>
+        <div class="nk iron"><span class="x">1/13</span><span class="nm">Tia</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender · RL</span><span class="why">Khiên chặn Shock Wave, Toxic Shell của Ultra; đi cặp Naga · Collection 5</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/4 → 10/5/4<br>Burst chỉ tạo khiên, giữ cấp 4</span></div>
+        <div class="nk fire"><span class="x">1/13</span><span class="nm">Eunhwa: Tactical Upgrade</span><span class="meta"><span class="bu">II</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Mới có. Mảnh ghép đội Absolute (Emma: TU, Vesti: TU): Indivilia C, Story D</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 4/7/7 → 7/10/10<br>Theo Prydwen; nikke.gg giữ Burst ở 7</span></div>
+        <div class="nk water"><span class="x">1/13</span><span class="nm">Quency: Escape Queen</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SMG</span><span class="why">Đã vào Synchro. Harvester B, đi cùng cặp Maid</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 5/7/7 → 7/10/10<br>S2 nâng càng sớm càng tốt</span></div>
+        <div class="nk wind"><span class="x">1/13</span><span class="nm">Scarlet: Black Shadow</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · RL</span><span class="why">Mới vào Synchro 08/11. Boss SSS trên nikke.gg: DPS Wind cho Kraken, đi tháp Pilgrim</span><span class="sk"><b>Skill: S1 &gt; S2</b> · 7/4/7 → 10/7/10<br>Cube Bastion/Resilience · Overload: Elemental DMG &gt; ATK &gt; Crit</span></div>
+        <div class="nk fire"><span class="x">2/13</span><span class="nm">Scarlet: Goddeath</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · AR</span><span class="why">Prydwen SSS cả Story, Boss, PvP. DPS Fire xuyên giáp số 2 sau Marian: Queen: Indivilia B, D · Collection 10</span><span class="sk"><b>Skill: Burst ≈ S1 &gt; S2</b> · 4/4/4 → 7/7/7 → 10/10/10<br>Cube Piercing (từ cấp 13), chưa thì Resilience/Bastion 15 · Overload: 4 Elemental DMG + 4 ATK, còn lại Crit</span></div>
       </div>
     </div>
     <div class="tier">
       <div class="tier-h"><span>○ Theo dõi: mạnh lên khi có điều kiện</span><small>Phụ thuộc Treasure, bản mới hoặc chưa nâng level</small></div>
       <div class="tier-b">
         <div class="nk water"><span class="nm">Helm</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · SR</span><span class="why">Treasure → Collection 10, vào đội Harvester, Mirror</span><span class="sk"><b>Có Treasure: S2 &gt; S1</b> · 4/7/7 → 7/10/10<br>Chưa có: giữ 1/1/1, tối đa 5/7/5</span></div>
-        <div class="nk water"><span class="nm">Privaty</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · AR</span><span class="why">Treasure → Collection 10, vào đội Harvester</span><span class="sk"><b>Có Treasure: S1 = S2</b> · 7/7/4 → 10/7/7<br>Chưa có: S1 &gt; S2 · 7/4/4 → 10/4/4</span></div>
+        <div class="nk water"><span class="nm">Privaty</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · AR</span><span class="why">Treasure → Collection 10, vào đội Harvester; Indivilia D</span><span class="sk"><b>Có Treasure: S1 = S2</b> · 7/7/4 → 10/7/7<br>Chưa có: S1 &gt; S2 · 7/4/4 → 10/4/4</span></div>
         <div class="nk water"><span class="nm">Phantom</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · AR</span><span class="why">Treasure: tương tác mạnh với Indivilia</span><span class="sk"><b>Có Treasure: S2 &gt; S1</b> · 4/7/7 → 7/10/10<br>Chưa có: S1 ≥ S2 · 7/7/4 → 10/10/7</span></div>
-        <div class="nk fire"><span class="nm">Scarlet: Goddeath</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker · AR</span><span class="why">Ra 05/11, chưa có đánh giá đầy đủ</span><span class="sk"><b>Skill: chưa có khuyến nghị</b><br>nikke.gg vẫn đang thử nghiệm</span></div>
-        <div class="nk fire"><span class="nm">Rapunzel: Sanctuary</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · RL</span><span class="why">Đã vào Synchro. Burst II Fire 20s, thay Nayuta ở Indivilia B</span><span class="sk"><b>Skill: chưa có khuyến nghị</b><br>Mới ra 29/10, nikke.gg vẫn đang thử nghiệm</span></div>
+        <div class="nk fire"><span class="nm">Rapunzel: Sanctuary</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · RL</span><span class="why">Đã vào Synchro. Burst II Fire 20s: Indivilia D, buff Scarlet: Goddeath; thay Nayuta ở Indivilia B</span><span class="sk"><b>Skill: S2 ≥ S1 &gt; Burst</b> · 4/4/4 → 7/7/7 → 7/10/7<br>Theo Prydwen: buff ít tăng theo cấp, không cần 10/10/10 · Cube Resilience, nhiều Max Ammo thì Bastion · Overload: 4 Elemental DMG + 4 ATK + 1 Max Ammo <a class="cite" href="https://www.prydwen.gg/nikke/characters/rapunzel-sanctuary" target="_blank">[40]</a></span></div>
         <div class="nk fire"><span class="nm">Arcana: Fortune Mate</span><span class="meta"><span class="bu">II</span><svg><use href="#i-att"/></svg>Attacker · SG</span><span class="why">Đã vào Synchro. Boss S trên nikke.gg; Burst II Fire 20s cho Indivilia</span><span class="sk"><b>Skill: S2 &gt; S1</b> · 4/7/7 → 7/10/7<br>S2 buff cả đội dùng shotgun</span></div>
         <div class="nk elec"><span class="nm">Flora</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter · MG</span><span class="why">Đã vào Synchro. Có Treasure lên SSS: hồi máu, khiên, buff ATK, "Crown giá rẻ"</span><span class="sk"><b>Có Treasure: S2 &gt; S1</b> · 4/7/7 → 7/10/10<br>Chưa có: 4/4/4 → 4/7/7</span></div>
       </div>
@@ -458,6 +479,121 @@ html,body{overflow-x:clip;max-width:100%}
   </div>
   <p class="note" style="margin-top:12px"><strong>Cách đọc dòng Skill:</strong> mức tiết kiệm → mức đầy đủ, theo dạng S1/S2/Burst. Đưa cả đội lên mức tiết kiệm trước, vì sau cấp 7 sách tốn tăng rất nhanh. Burst dùng sách riêng, không tranh với S1/S2. Liter (đội Campaign, Ultra): S1 &gt; S2 · 7/5/7 → 10/5/10. Bộ Absolute: Emma: TU S2 &gt; S1 · 4/7/4 → 7/10/7; Vesti: TU S2 &gt; S1 · 4/7/4 → 4/10/7. D: Killer Wife (CDR): S2 &gt; S1 · 5/7/4 → 7/10/5. *Nayuta: nikke.gg ghi mức tiết kiệm Burst là 1 nhưng lại gọi Burst là lý do chính để dùng cô ấy, nên mình khuyên 4–7. Nguồn: trang từng nhân vật trên <a href="https://nikke.gg/characters/" target="_blank">nikke.gg</a>.</p>
   <p class="note">Tiêu chí xếp nhóm chỉ tính Anomaly Interception. Solo Raid, Arena hay cốt truyện có thể ưu tiên NIKKE khác. Trong bảng roster ở mục 06, các con này được tô nền và gắn ★ ◆ ○.</p>
+</section>
+
+<section class="sec" id="wish">
+  <div class="sec-head"><span class="sec-no">W</span><div><h2>Revise Wishlist</h2><p>Banner thường (Ordinary Recruit) · nên chọn ai để tối ưu, dựa trên NIKKE bạn đang có · theo Gamemeca (06/11/2026) và Reddit</p></div></div>
+  <div class="item">
+    <div><h3>Wishlist hoạt động thế nào</h3><span class="tag">Mỗi hãng 5 con</span></div>
+    <div>
+      <p><strong>Nhớ: mỗi hãng đều có 5 ô Wishlist.</strong> Có 4 nhóm: Elysion, Missilis, Tetra, Pilgrim (gồm cả Over-spec), tổng cộng 20 con. Abnormal (collab) không có nhóm. <a class="cite" href="https://www.gamemeca.com/en/view.php?gid=1782927" target="_blank">[33]</a></p>
+      <ul>
+        <li><strong>Khi quay banner thường ra SSR, game chỉ trả về 1 trong 20 con bạn đã chọn.</strong> Ngày 04/11/2026 banner thường có 126 SSR; Wishlist thu hẹp còn 20.</li>
+        <li><strong>Wishlist không làm tăng tỉ lệ ra SSR</strong>, chỉ quyết định SSR đó là ai. Tỉ lệ cụ thể xem trong màn hình banner.</li>
+        <li>Mở khóa sau <strong>40 lượt quay banner thường</strong>. Đổi lại danh sách được: Gamemeca khuyên đổi sang con khác khi con trong danh sách đã đủ 3 Limit Break.</li>
+        <li>Chỉ chọn được NIKKE có trong banner thường. Bản giới hạn hoặc collab không có trong danh sách chọn.</li>
+        <li>Ô Pilgrim mở cho cả NIKKE Over-spec (Anis: Star, Rapi: Red Hood, Neon: Vision Eye, Mihara: Bonding Chain). <a class="cite" href="https://www.reddit.com/r/NikkeMobile/comments/1hklnqk/you_can_now_wishlist_ocpilgrim_units_now/" target="_blank">[34]</a></li>
+        <li>Mốc thưởng thêm: cứ 100 lượt banner thường được 1 SSR chỉ định (Bonus Recruit, vd Helm, Liter).</li>
+      </ul>
+      <p class="note"><strong>Chọn theo nguyên tắc nào:</strong> bản trùng dùng để Limit Break (+40 level, mở Core) và Treasure cần 2 Limit Break. Nên Wishlist đáng dành cho (1) con bạn chưa có mà rất mạnh, và (2) con bạn đang dùng nhiều mà chưa đủ sao. Con nào đã 3 sao + Core 7 thì bản trùng chỉ còn đổi ra nguyên liệu: rút khỏi Wishlist, thay bằng con dự phòng.</p>
+    </div>
+  </div>
+  <div class="item">
+    <div><h3>Phương án 1: lấy bản trùng</h3><span class="tag">Con đã có</span></div>
+    <div>
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Elysion_logo.webp" alt="Elysion"></span><span><strong>Elysion</strong> · trùng hẳn 5 con Gamemeca khuyên, bạn đều đã có</span></p>
+      <div class="team"><span class="lab">5/5</span>
+        <div class="nk water"><span class="nm">Mast: Romantic Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Trụ cột 6/13 đội</span></div>
+        <div class="nk water"><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Đi cặp Mast</span></div>
+        <div class="nk water"><span class="nm">Helm</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Treasure → SS</span></div>
+        <div class="nk water"><span class="nm">Privaty</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Treasure → SS</span></div>
+        <div class="nk fire"><span class="nm">Vesti: Tactical Upgrade</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Dọn quái, tháp Elysion</span></div>
+      </div>
+      <p class="note">Helm và Privaty cần đủ 2 Limit Break để làm Treasure, nên bản trùng rất đáng. Dự phòng: Phantom (Treasure), Arcana: Fortune Mate, Miranda.</p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Missilis_logo.webp" alt="Missilis"></span><span><strong>Missilis</strong> · ưu tiên cặp Tia + Naga thay Crown</span></p>
+      <div class="team"><span class="lab">5/5</span>
+        <div class="nk iron"><span class="nm">Liter</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">CDR tốt nhất Missilis</span></div>
+        <div class="nk iron"><span class="nm">Tia</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">"Crown giá rẻ"</span></div>
+        <div class="nk elec"><span class="nm">Naga</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">4/13 đội, đi cặp Tia</span></div>
+        <div class="nk elec"><span class="nm">Flora</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Treasure → SSS</span></div>
+        <div class="nk water"><span class="nm">Quency: Escape Queen</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Boss Water, tháp</span></div>
+      </div>
+      <p class="note">Gamemeca khuyên Tove hoặc Liter · Flora · Ein · Quency · Drake. Mình đổi Tove, Ein, Drake lấy Tia + Naga vì đội Story A, Ultra C, tháp Missilis và tháp chính B của bạn đều dựa vào cặp này khi chưa có Crown. Drake đã được 2 Limit Break và đủ nguyên liệu Treasure từ sự kiện thường trực ROAD TO VILLAIN nên không cần ô. Dự phòng: Tove (Treasure, đội shotgun), Ein (bạn chưa có, DPS Electric cho Mirror Container), Centi.</p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Tetra_logo.webp" alt="Tetra"></span><span><strong>Tetra</strong> · Moran trước tiên</span></p>
+      <div class="team"><span class="lab">5/5</span>
+        <div class="nk elec"><span class="nm">Moran</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Treasure → SSS, cần 2 LB</span></div>
+        <div class="nk elec"><span class="nm">Rouge</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">CDR, buff Cinderella</span></div>
+        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Trụ cột 4/13 đội</span></div>
+        <div class="nk wind"><span class="nm">Blanc</span><span class="meta"><span class="bu">II</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Lõi tháp Tetra</span></div>
+        <div class="nk wind"><span class="nm">Noir</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Đi cặp Blanc</span></div>
+      </div>
+      <p class="note">Moran là Treasure Prydwen xếp số 1 (việc đang chờ ở Ghi chú), cần 2 Limit Break, nên bản trùng quý nhất ở nhóm này. Gamemeca khuyên Rouge · Moran · Prika · Mint · Alice, trong đó Mint và Prika (bản dịch Gamemeca ghi "Frica") là cặp Burst II: Prika gần như vô dụng nếu thiếu Mint. Bạn chưa có con nào nên phương án này giữ Blanc + Noir (đã dùng ở tháp Tetra); muốn lấy Mint + Prika thì xem Phương án 2.</p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Pilgrim_logo.webp" alt="Pilgrim"></span><span><strong>Pilgrim · Over-spec</strong> · Crown là ô quan trọng nhất cả Wishlist</span></p>
+      <div class="team"><span class="lab">5/5</span>
+        <div class="nk iron"><span class="nm">Crown</span><span class="meta"><span class="bu">II</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Chưa có · cả 8 đội meta cần</span></div>
+        <div class="nk fire"><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Trụ cột 6/13 đội</span></div>
+        <div class="nk elec"><span class="nm">Anis: Star</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Burst I số 1</span></div>
+        <div class="nk wind"><span class="nm">Scarlet: Black Shadow</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">0 LB · Kraken A</span></div>
+        <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Trụ cột 4/13 đội</span></div>
+      </div>
+      <p class="note">Theo Gamemeca, Anis: Star và Crown là cặp Burst I/II mạnh nhất hiện nay; Crown được gọi là "thần Burst II". Rapi: Red Hood và Anis: Star là Over-spec nên nằm ở ô Pilgrim. Scarlet: Black Shadow mới có 1 bản, chưa Limit Break, và đi cặp tốt với Liberalio. Dự phòng: Red Hood, Nayuta, Liberalio, Snow White: Heavy Arms, Cinderella. Crown, Siren và Liberalio còn lấy được qua sự kiện Affection Trail (chọn 1 trong 3), nhưng sự kiện này chỉ mở khi mua gói trả phí.</p>
+      <p class="note"><strong>Lưu ý:</strong> mình không biết số sao hiện tại của từng con. Con nào đã 3 sao + Core 7 thì thay bằng con dự phòng cùng hãng. Nếu con nào không hiện trong danh sách chọn (vì là bản giới hạn), cũng thay bằng con dự phòng.</p>
+    </div>
+  </div>
+  <div class="item">
+    <div><h3>Phương án 2: NIKKE mới + bản trùng</h3><span class="tag">7 con mới · 13 bản trùng</span></div>
+    <div>
+      <p><strong>Bạn đã ở Synchro 257, nên con mới vừa vào ô Synchro là lên 257 và dùng được ngay.</strong> Bản trùng của con không có Treasure chỉ cho thêm Core (+2% chỉ số mỗi Core, tối đa +14%). Phương án này dành ô cho con bạn chưa có mà lấp đúng chỗ thiếu (nhất là tháp hãng, nơi chỉ dùng được NIKKE cùng hãng), và giữ ô cho con Treasure cần 2 Limit Break. 7 con mới đều nằm trong danh sách Wishlist mà Gamemeca khuyên, nên đều có trong banner thường. <a class="cite" href="https://www.gamemeca.com/en/view.php?gid=1782927" target="_blank">[33]</a></p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Elysion_logo.webp" alt="Elysion"></span><span><strong>Elysion</strong> · 1 mới + 4 bản trùng</span></p>
+      <div class="team"><span class="lab">1+4</span>
+        <div class="nk water"><span class="x">MỚI</span><span class="nm">Soline: Frost Ticket</span><span class="meta"><span class="bu">I</span>SG · Water</span><span class="why">CDR 7,48s · tháp Elysion</span></div>
+        <div class="nk water"><span class="nm">Mast: Romantic Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Trụ cột 6/13 đội</span></div>
+        <div class="nk water"><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Đi cặp Mast</span></div>
+        <div class="nk water"><span class="nm">Helm</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Cần 2 LB cho Treasure</span></div>
+        <div class="nk water"><span class="nm">Privaty</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Cần 2 LB cho Treasure</span></div>
+      </div>
+      <p class="note">Soline: Frost Ticket là Burst I Elysion có giảm hồi chiêu 7,48s, ngang mức CDR mạnh nhất hiện nay. Ngoài CDR thì cô ấy gần như không gây sát thương, trừ khi đi đội shotgun (Tove, Drake). Ở tháp Elysion, cô ấy thay được D: Killer Wife. Đây là con mới yếu nhất trong 7 con; nếu không cần thì giữ Vesti: TU như Phương án 1. <a class="cite" href="https://lootandwaifus.com/character/soline-frost-ticket-nikke/" target="_blank">[37]</a></p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Missilis_logo.webp" alt="Missilis"></span><span><strong>Missilis</strong> · 2 mới + 3 bản trùng</span></p>
+      <div class="team"><span class="lab">2+3</span>
+        <div class="nk elec"><span class="x">MỚI</span><span class="nm">Ein</span><span class="meta"><span class="bu">III</span>SR · Electric</span><span class="why">Mirror Container, tháp Missilis</span></div>
+        <div class="nk wind"><span class="x">MỚI</span><span class="nm">Laplace: Ultimate Hero</span><span class="meta"><span class="bu">III</span>RL · Wind</span><span class="why">DPS Wind · Kraken</span></div>
+        <div class="nk elec"><span class="nm">Flora</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">Treasure → SSS</span></div>
+        <div class="nk iron"><span class="nm">Liter</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">CDR, đội Story A</span></div>
+        <div class="nk elec"><span class="nm">Naga</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">4/13 đội</span></div>
+      </div>
+      <p class="note"><strong>Hãng thiếu người nhất của bạn.</strong> Tháp Missilis hiện phải dùng Neon: Vision Eye và Drake làm DPS.
+        <br>• <strong>Ein:</strong> Gamemeca gọi là DPS chính ở Mirror Container và ở nội dung quái yếu Electric. Người chơi Reddit cũng giữ cô ấy trong đội tháp Missilis.
+        <br>• <strong>Laplace: Ultimate Hero:</strong> Prydwen chấm SS ở boss. Cô ấy là DPS Wind nên vào được Kraken, nơi bạn mới có 12 con Wind ở LV 257. Có người trên Reddit nhận xét cô ấy có thể đẩy Scarlet: Black Shadow xuống làm Burst III thứ ba.
+        <br>Tia rút khỏi danh sách vì bản trùng không có Treasure; cô ấy vẫn ở Phương án 1. <a class="cite" href="https://www.reddit.com/r/NikkeMobile/comments/1v81k4r/laplace_ultimate_hero_and_flora_treasure_review/" target="_blank">[36]</a></p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Tetra_logo.webp" alt="Tetra"></span><span><strong>Tetra</strong> · 2 mới + 3 bản trùng</span></p>
+      <div class="team"><span class="lab">2+3</span>
+        <div class="nk iron"><span class="x">MỚI</span><span class="nm">Mint</span><span class="meta"><span class="bu">II</span>RL · Iron</span><span class="why">Cặp Burst II với Prika</span></div>
+        <div class="nk water"><span class="x">MỚI</span><span class="nm">Prika</span><span class="meta"><span class="bu">II</span>SR · Water</span><span class="why">Phải đi cùng Mint</span></div>
+        <div class="nk elec"><span class="nm">Moran</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Treasure → SSS, cần 2 LB</span></div>
+        <div class="nk elec"><span class="nm">Rouge</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>Supporter</span><span class="why">CDR, buff Cinderella</span></div>
+        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Trụ cột 4/13 đội</span></div>
+      </div>
+      <p class="note">Mint + Prika là cặp Burst II mạnh và hợp với Rapi: Red Hood và Anis: Star, hai con bạn dùng nhiều nhất. Người chơi Reddit dùng cặp này thay đội Blanc ở Solo Raid. <strong>Rủi ro:</strong> Prika gần như vô dụng nếu thiếu Mint, còn Mint dùng riêng được. Có người quay hơn 300 lượt mới đủ cả hai, nên chỉ chọn khi bạn chịu quay lâu. Blanc + Noir rút khỏi danh sách, vẫn dùng ở tháp Tetra như cũ. <a class="cite" href="https://www.reddit.com/r/NikkeMobile/comments/1tt5ktw/mint_and_prikas_reviews_by_prydwen/" target="_blank">[35]</a></p>
+
+      <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Pilgrim_logo.webp" alt="Pilgrim"></span><span><strong>Pilgrim · Over-spec</strong> · 2 mới + 3 bản trùng</span></p>
+      <div class="team"><span class="lab">2+3</span>
+        <div class="nk iron"><span class="x">MỚI</span><span class="nm">Crown</span><span class="meta"><span class="bu">II</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Cả 8 đội meta cần</span></div>
+        <div class="nk fire"><span class="x">MỚI</span><span class="nm">Mihara: Bonding Chain</span><span class="meta"><span class="bu">III</span>MG · Fire</span><span class="why">DPS sát thương theo thời gian</span></div>
+        <div class="nk fire"><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">Trụ cột 6/13 đội</span></div>
+        <div class="nk elec"><span class="nm">Anis: Star</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>Defender</span><span class="why">Burst I số 1</span></div>
+        <div class="nk wind"><span class="nm">Scarlet: Black Shadow</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">0 LB · Kraken A</span></div>
+      </div>
+      <p class="note">Gamemeca gọi Mihara: Bonding Chain là NIKKE sát thương theo thời gian mạnh nhất. Cô ấy là Over-spec (Missilis + Pilgrim) nên đi được cả tháp Missilis lẫn tháp Pilgrim, lấp thêm chỗ thiếu của Missilis. Siren rút khỏi danh sách vì đã có, không có Treasure; cô ấy vẫn ở Phương án 1.</p>
+
+      <p class="note"><strong>Chọn phương án nào:</strong> Phương án 1 làm mạnh thêm các đội bạn đang dùng. Phương án 2 mở thêm đội ở tháp Missilis và Tetra, nơi bạn đang thiếu người. Ghép hai phương án theo từng hãng cũng được, vì mỗi hãng có 5 ô riêng (ví dụ Missilis theo Phương án 2, Elysion theo Phương án 1). <strong>Lưu ý Synchro:</strong> ô Synchro của bạn đang đầy, nên mỗi con mới cần rút một con điểm Collection thấp ra, hoặc mua thêm ô (500 gem/ô, mục 03).</p>
+    </div>
+  </div>
 </section>
 
 <section class="sec" id="card">
@@ -560,24 +696,24 @@ html,body{overflow-x:clip;max-width:100%}
 </section>
 
 <section class="sec" id="stats">
-  <div class="sec-head"><span class="sec-no">05</span><div><h2>Thống kê roster</h2><p>111 NIKKE SSR · rê chuột lên thanh để xem số</p></div></div>
+  <div class="sec-head"><span class="sec-no">05</span><div><h2>Thống kê roster</h2><p>112 NIKKE SSR · rê chuột lên thanh để xem số</p></div></div>
   <div class="legend"><span><i class="sw"></i>LV 257</span><span><i class="sw lo"></i>LV 01 (chưa nâng)</span></div>
   <div class="item">
-    <div><h3>Theo Code</h3><p class="note">Fire nhiều nhất (26 con), 11 con còn LV 01. Electric gần như đã lên hết (22/25). Wind ít nhất: chỉ 11 con ở LV 257, cần chọn kỹ cho Kraken.</p></div>
+    <div><h3>Theo Code</h3><p class="note">Fire nhiều nhất (26 con), 11 con còn LV 01. Electric gần như đã lên hết (21/25). Wind ít nhất: 12 con ở LV 257 (thêm Scarlet: Black Shadow), cần chọn kỹ cho Kraken.</p></div>
     <div class="bars">
       <div class="bar-row"><span class="code fire">Fire</span><div class="bar-track"><div class="seg" style="--cc:var(--c-fire);width:57.7%" title="Fire LV 257: 15"></div><div class="seg lo" style="--cc:var(--c-fire);width:42.3%" title="Fire LV 01: 11"></div></div><span class="num">26</span></div>
-      <div class="bar-row"><span class="code elec">Electric</span><div class="bar-track"><div class="seg" style="--cc:var(--c-elec);width:84.6%" title="Electric LV 257: 22"></div><div class="seg lo" style="--cc:var(--c-elec);width:11.5%" title="Electric LV 01: 3"></div></div><span class="num">25</span></div>
+      <div class="bar-row"><span class="code elec">Electric</span><div class="bar-track"><div class="seg" style="--cc:var(--c-elec);width:80.8%" title="Electric LV 257: 21"></div><div class="seg lo" style="--cc:var(--c-elec);width:15.4%" title="Electric LV 01: 4"></div></div><span class="num">25</span></div>
       <div class="bar-row"><span class="code iron">Iron</span><div class="bar-track"><div class="seg" style="--cc:var(--c-iron);width:69.2%" title="Iron LV 257: 18"></div><div class="seg lo" style="--cc:var(--c-iron);width:19.2%" title="Iron LV 01: 5"></div></div><span class="num">23</span></div>
       <div class="bar-row"><span class="code water">Water</span><div class="bar-track"><div class="seg" style="--cc:var(--c-water);width:57.7%" title="Water LV 257: 15"></div><div class="seg lo" style="--cc:var(--c-water);width:26.9%" title="Water LV 01: 7"></div></div><span class="num">22</span></div>
-      <div class="bar-row"><span class="code wind">Wind</span><div class="bar-track"><div class="seg" style="--cc:var(--c-wind);width:42.3%" title="Wind LV 257: 11"></div><div class="seg lo" style="--cc:var(--c-wind);width:15.4%" title="Wind LV 01: 4"></div></div><span class="num">15</span></div>
+      <div class="bar-row"><span class="code wind">Wind</span><div class="bar-track"><div class="seg" style="--cc:var(--c-wind);width:46.2%" title="Wind LV 257: 12"></div><div class="seg lo" style="--cc:var(--c-wind);width:15.4%" title="Wind LV 01: 4"></div></div><span class="num">16</span></div>
     </div>
   </div>
   <div class="item">
     <div><h3>Theo Class</h3><p class="note">Ở LV 257 có 38 Attacker, 29 Supporter, 14 Defender.</p></div>
     <div class="bars">
-      <div class="bar-row"><span><svg class="ci"><use href="#i-att"/></svg>Attacker</span><div class="bar-track"><div class="seg ink" style="width:79.2%" title="Attacker LV 257: 38"></div><div class="seg lo ink" style="width:20.8%" title="Attacker LV 01: 10"></div></div><span class="num">48</span></div>
-      <div class="bar-row"><span><svg class="ci"><use href="#i-sup"/></svg>Supporter</span><div class="bar-track"><div class="seg ink" style="width:60.4%" title="Supporter LV 257: 29"></div><div class="seg lo ink" style="width:16.7%" title="Supporter LV 01: 8"></div></div><span class="num">37</span></div>
-      <div class="bar-row"><span><svg class="ci"><use href="#i-def"/></svg>Defender</span><div class="bar-track"><div class="seg ink" style="width:29.2%" title="Defender LV 257: 14"></div><div class="seg lo ink" style="width:25%" title="Defender LV 01: 12"></div></div><span class="num">26</span></div>
+      <div class="bar-row"><span><svg class="ci"><use href="#i-att"/></svg>Attacker</span><div class="bar-track"><div class="seg ink" style="width:77.6%" title="Attacker LV 257: 38"></div><div class="seg lo ink" style="width:22.4%" title="Attacker LV 01: 11"></div></div><span class="num">49</span></div>
+      <div class="bar-row"><span><svg class="ci"><use href="#i-sup"/></svg>Supporter</span><div class="bar-track"><div class="seg ink" style="width:59.2%" title="Supporter LV 257: 29"></div><div class="seg lo ink" style="width:16.3%" title="Supporter LV 01: 8"></div></div><span class="num">37</span></div>
+      <div class="bar-row"><span><svg class="ci"><use href="#i-def"/></svg>Defender</span><div class="bar-track"><div class="seg ink" style="width:28.6%" title="Defender LV 257: 14"></div><div class="seg lo ink" style="width:24.5%" title="Defender LV 01: 12"></div></div><span class="num">26</span></div>
     </div>
   </div>
   <div class="item">
@@ -585,20 +721,24 @@ html,body{overflow-x:clip;max-width:100%}
     <div class="bars">
       <div class="bar-row"><span class="pri must">PHẢI CÓ</span><div class="bar-track"><div class="seg" style="--cc:var(--must);width:26.8%" title="PHẢI CÓ LV 257: 19"></div></div><span class="num">19</span></div>
       <div class="bar-row"><span class="pri should">NÊN CÓ</span><div class="bar-track"><div class="seg" style="--cc:var(--should);width:23.9%" title="NÊN CÓ LV 257: 17"></div></div><span class="num">17</span></div>
-      <div class="bar-row"><span class="pri skip">KHÔNG CẦN</span><div class="bar-track"><div class="seg" style="--cc:var(--skip);width:59.2%" title="KHÔNG CẦN LV 257: 42"></div><div class="seg lo" style="--cc:var(--skip);width:40.8%" title="KHÔNG CẦN LV 01: 29"></div></div><span class="num">71</span></div>
-      <div class="bar-row"><span class="pri na">Chưa xếp</span><div class="bar-track"><div class="seg" style="--cc:var(--ink2);width:4.2%" title="Chưa xếp LV 257: 3 (Trina, Rapunzel: Sanctuary, Eunhwa: Tactical Upgrade)"></div><div class="seg lo" style="--cc:var(--ink2);width:1.4%" title="Chưa xếp LV 01: 1 (Snow Crane)"></div></div><span class="num">4</span></div>
+      <div class="bar-row"><span class="pri skip">KHÔNG CẦN</span><div class="bar-track"><div class="seg" style="--cc:var(--skip);width:57.7%" title="KHÔNG CẦN LV 257: 41"></div><div class="seg lo" style="--cc:var(--skip);width:42.3%" title="KHÔNG CẦN LV 01: 30"></div></div><span class="num">71</span></div>
+      <div class="bar-row"><span class="pri na">Chưa xếp</span><div class="bar-track"><div class="seg" style="--cc:var(--ink2);width:5.6%" title="Chưa xếp LV 257: 4 (Trina, Rapunzel: Sanctuary, Eunhwa: Tactical Upgrade, Scarlet: Black Shadow)"></div><div class="seg lo" style="--cc:var(--ink2);width:1.4%" title="Chưa xếp LV 01: 1 (Snow Crane)"></div></div><span class="num">5</span></div>
     </div>
   </div>
 </section>
 
 <section class="sec" id="roster">
   <div class="sec-head"><span class="sec-no">06</span><div><h2>Danh sách NIKKE sở hữu</h2><p>Chia theo Synchro, xếp từ mạnh xuống yếu theo tier Combined của nikke.gg (11/2026) · Code, Burst, vũ khí, Class từ Prydwen, nikkers.cc, NIKKE Wiki · Collection theo Prydwen</p></div></div>
-  <div class="legend"><span><span class="tb t-sss">SSS</span><span class="tb t-ss">SS</span><span class="tb t-s">S</span><span class="tb t-a">A</span><span class="tb t-b">B</span><span class="tb t-c">C</span><span class="tb t-d">D</span><span class="tb t-e">E</span><span class="tb t-f">F</span> tier nikke.gg</span><span><span class="tr">Tr: SS</span> tier khi có Treasure</span><span><b style="color:var(--gold)">★</b> Trụ cột (nền vàng)</span><span><b style="color:var(--silver)">◆</b> Chuyên boss (nền xám)</span><span><b>○</b> Theo dõi</span><span><i class="st core" style="margin:0">CORE SYNC</i> 1 trong 5 con gốc, không rút được</span><span><i class="st in" style="margin:0">VÀO SYNC</i> / <i class="st out" style="margin:0">ĐÃ RÚT</i> đổi ngày 07/11</span><span>Nguồn: <a class="cite" href="https://nikke.gg/tier-list/" target="_blank">[25]</a><a class="cite" href="https://www.prydwen.gg/nikke/characters" target="_blank">[5]</a><a class="cite" href="https://nikkers.cc/characters" target="_blank">[6]</a><a class="cite" href="https://www.prydwen.gg/nikke/builds" target="_blank">[7]</a></span></div>
+  <div class="legend"><span><span class="tb t-sss">SSS</span><span class="tb t-ss">SS</span><span class="tb t-s">S</span><span class="tb t-a">A</span><span class="tb t-b">B</span><span class="tb t-c">C</span><span class="tb t-d">D</span><span class="tb t-e">E</span><span class="tb t-f">F</span> tier nikke.gg</span><span><span class="tr">Tr: SS</span> tier khi có Treasure</span><span><b style="color:var(--gold);font-size:15px">★</b><i class="pil" style="margin:0">TRỤ CỘT</i> nền vàng đậm, vạch vàng bên trái, tên in đậm: 8 con xương sống của mọi đội (mục 01)</span><span><b style="color:var(--silver)">◆</b> Chuyên boss (nền xám)</span><span><b>○</b> Theo dõi</span><span><i class="ro rs" style="margin:0">STORY</i> <i class="ro rb">BOSS</i> <i class="ro rp">PVP</i> mạnh ở chế độ đó (nikke.gg chấm SS trở lên)</span><span><i class="st core" style="margin:0">CORE SYNC</i> 1 trong 5 con gốc, không rút được</span><span><i class="st in" style="margin:0">VÀO SYNC</i> / <i class="st out" style="margin:0">ĐÃ RÚT</i> đổi ngày 07–08/11</span><span>Nguồn: <a class="cite" href="https://nikke.gg/tier-list/" target="_blank">[25]</a><a class="cite" href="https://nikke.gg/characters/" target="_blank">[39]</a><a class="cite" href="https://www.prydwen.gg/nikke/characters" target="_blank">[5]</a><a class="cite" href="https://nikkers.cc/characters" target="_blank">[6]</a><a class="cite" href="https://www.prydwen.gg/nikke/builds" target="_blank">[7]</a></span></div>
+  <p class="note"><strong>Cách đọc nhãn chế độ:</strong> ★ ◆ ○ cho biết con đó đứng ở đâu trong đội của bạn (mục 01, 08); nhãn STORY / BOSS / PVP cho biết nikke.gg đánh giá con đó mạnh ở chế độ nào. Một con có thể mang nhiều nhãn. Nhãn chỉ dựa trên điểm từng chế độ trên trang nhân vật nikke.gg (bản chưa Treasure, đọc ngày 10/11/2026); con nào không đạt SS ở chế độ nào thì không gắn. STORY là Campaign (và các màn đông quái tương tự như Tribe Tower); BOSS là đánh boss (Anomaly Interception, Solo Raid, Union Raid); PVP là Arena. Bảng Chưa Sync không gắn nhãn vì đang LV 01. <a class="cite" href="https://nikke.gg/characters/" target="_blank">[39]</a></p>
+  <p class="note"><strong>Đã Sync có 11 con STORY, 13 con BOSS, 18 con PVP.</strong> Cả 3 chế độ: Anis: Star, Snow White: HA, Scarlet: Goddeath, Nayuta, Liberalio, Neon: Vision Eye. <strong>Chỉ mạnh PvP</strong> (giữ cho Arena, đừng rút khỏi Synchro nếu bạn chơi Arena): Red Hood, Scarlet, Blanc, Trina, Rapunzel, Noise, Biscuit, Noah, Moran, Jackal. Rapi: Red Hood và Mast chỉ đạt B và D ở PvP. Có Treasure thì Helm (PvP SSS), Privaty (Boss SSS), Flora (Story/Boss SSS), Moran (cả 3 SS–SSS) mạnh hơn hẳn; nhãn sẽ cập nhật khi bạn báo đã lên Treasure.</p>
+  <p class="note"><strong>Cột Cube:</strong> cube đứng đầu là tốt nhất, sau dấu "/" là cube thay thế khi chưa có hoặc cấp thấp hơn; "Tr:" là khi đã có Treasure. Theo nikke.gg, nếu 2 cube gần bằng nhau thì dùng cube cấp cao hơn. Một số lưu ý từ nikke.gg: Resilience hợp đội tăng tốc nạp đạn; Bastion hợp con có nhiều dòng Max Ammo hoặc được hoàn đạn; Vigor tăng hồi máu, khiên cho Supporter/Defender; Destruction dùng khi boss có bộ phận; con có cơ chế "viên đạn cuối" (Helm, Privaty, Exia) không dùng cube tăng đạn. Cube cũng hiện trên từng thẻ NIKKE ở mục 01, 08, 09, 10. Bảng Chưa Sync để trống vì các con đó đang LV 01. Nguồn: trang từng NIKKE trên nikke.gg; Scarlet: Goddeath và Rapunzel: Sanctuary theo Prydwen. <a class="cite" href="https://nikke.gg/characters/" target="_blank">[39]</a><a class="cite" href="https://www.prydwen.gg/nikke/characters/scarlet-goddeath" target="_blank">[38]</a><a class="cite" href="https://www.prydwen.gg/nikke/characters/rapunzel-sanctuary" target="_blank">[40]</a></p>
+  <p class="note"><strong>Cột Overload (Gear Investment):</strong> đọc theo dạng <em>dòng cần săn | dòng phụ | mức ưu tiên</em>. Ví dụ "4 ELE · 4 ATK · 1 Max Ammo" là 4 dòng Elemental DMG, 4 dòng ATK, 1 dòng Max Ammo trên tổng 12 dòng của 4 món; "bắt buộc" là phải có trước khi lo dòng khác. Mức ưu tiên (Meta, Rất cao, Cao, Trung bình, Thấp) là Prydwen xếp con nào đáng tốn đá Custom Module trước. Con ghi "(nikke.gg)" là thứ tự ưu tiên theo điểm Overload của nikke.gg vì Prydwen không có dòng cụ thể; "Tr:" là khi đã lên Treasure (trước đó các con này chỉ cần OL lấy CP, đây là gợi ý của Dia). Quy tắc chung của Prydwen: mỗi món nên có 2 dòng tốt; OL theo thứ tự Mũ &gt; Găng &gt; Giáp &gt; Giày (con tăng sức mạnh theo HP: Giáp &gt; Mũ &gt; Giày &gt; Găng); dòng dưới mức tối thiểu gần như vô dụng (ELE 19,35%, Max Ammo 52,50%, ATK 9,70%, Charge Speed 4,04%, Hit Rate 9,70%); Supporter buff theo ATK của bản thân chỉ cần OL Mũ, Giáp, Găng để lấy chỉ số gốc, dòng không quan trọng. Overload cũng hiện trên từng thẻ NIKKE ở mục 01, 08, 09, 10. Snow White: Innocent Days, Mica: Snow Buddy, Sin, Signal chưa có dòng khuyến nghị ở cả hai nguồn. <a class="cite" href="https://www.prydwen.gg/nikke/characters" target="_blank">[41]</a><a class="cite" href="https://nikke.gg/characters/" target="_blank">[39]</a></p>
   <p class="note">Tier Combined gộp Story, Boss và PvP. Trong cùng một tier, con là trụ cột hoặc nằm trong nhiều đội ở mục 08–09 được xếp trên, sau đó theo điểm Collection. NIKKE có Treasure được xếp theo bản <strong>chưa</strong> có Treasure, vì Report chưa ghi bạn đã lên Treasure con nào; tier khi có Treasure ghi bên cạnh.</p>
   <div class="cmd"><button type="button" id="cmd-tier">Cập Nhật Tier List</button><span id="cmd-tier-msg">Bấm để copy lệnh, rồi dán vào chat với Dia</span></div>
   <script>
   document.getElementById('cmd-tier').addEventListener('click',function(){
-    var t='[Cập Nhật Tier List] Mở tier list Combined mới nhất trên nikke.gg (nikke.gg/tier-list), đối chiếu thêm Prydwen nếu đọc được. Cập nhật cột Tier và tier Treasure cho mục 06 của Report "Sổ tay chỉ huy NIKKE", xếp lại 2 bảng Đã Sync / Chưa Sync từ mạnh xuống yếu (cùng tier: trụ cột/chuyên boss trước, rồi theo điểm Collection), giữ nguyên ký hiệu ★◆○ và các nhãn. Ghi con nào lên/xuống tier vào mục Ghi chú, đổi ngày cập nhật, rồi mở lại Report.';
+    var t='[Cập Nhật Tier List] Mở tier list Combined mới nhất trên nikke.gg (nikke.gg/tier-list), đối chiếu thêm Prydwen nếu đọc được. Cập nhật cột Tier và tier Treasure cho mục 06 của Report "Sổ tay chỉ huy NIKKE", xếp lại 2 bảng Đã Sync / Chưa Sync từ mạnh xuống yếu (cùng tier: trụ cột/chuyên boss trước, rồi theo điểm Collection), giữ nguyên ký hiệu ★◆○ và các nhãn (kiểm tra lại nhãn STORY / BOSS / PVP theo điểm từng chế độ trên trang nhân vật nikke.gg). Ghi con nào lên/xuống tier vào mục Ghi chú, đổi ngày cập nhật, rồi mở lại Report.';
     var m=document.getElementById('cmd-tier-msg');
     function done(){m.textContent='Đã copy! Dán vào chat với Dia là xong.'}
     function fallback(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){m.textContent='Không copy được, hãy nhắn: Cập Nhật Tier List'}document.body.removeChild(a)}
@@ -608,12 +748,12 @@ html,body{overflow-x:clip;max-width:100%}
 
   <div class="item">
     <div><h3>Đã Sync</h3><span class="tag">81 NIKKE · LV 257</span></div>
-    <div><table><thead><tr><th>#</th><th>NIKKE</th><th>Tier</th><th>Code</th><th>Burst</th><th>Vũ khí</th><th>Class</th><th>Collection</th></tr></thead><tbody id="rs-on"></tbody></table>
-    <p class="note">*Scarlet: Goddeath ra 05/11, chưa có điểm Prydwen; hướng dẫn build khuyên búp bê AR tối thiểu SR Phase 5, Phase 15 nếu làm chủ lực Raid. <a class="cite" href="https://www.ldshop.gg/blog/goddess-of-victory-nikke/nikke-scarlet-goddeath.html" target="_blank">[8]</a></p></div>
+    <div><table><thead><tr><th>#</th><th>NIKKE</th><th>Tier</th><th>Code</th><th>Burst</th><th>Vũ khí</th><th>Class</th><th>Collection</th><th>Cube</th><th>Overload</th></tr></thead><tbody id="rs-on"></tbody></table>
+    <p class="note">Scarlet: Goddeath (ra 05/11): Prydwen đã chấm Collection 10/10 PvE và PvP (cập nhật 10/11; trước đó ghi PHẢI CÓ* theo hướng dẫn LDShop). <a class="cite" href="https://www.prydwen.gg/nikke/characters/scarlet-goddeath" target="_blank">[38]</a></p></div>
   </div>
   <div class="item">
-    <div><h3>Chưa Sync</h3><span class="tag">30 NIKKE · LV 01</span></div>
-    <div><table><thead><tr><th>#</th><th>NIKKE</th><th>Tier</th><th>Code</th><th>Burst</th><th>Vũ khí</th><th>Class</th><th>Collection</th></tr></thead><tbody id="rs-off"></tbody></table></div>
+    <div><h3>Chưa Sync</h3><span class="tag">31 NIKKE · LV 01</span></div>
+    <div><table><thead><tr><th>#</th><th>NIKKE</th><th>Tier</th><th>Code</th><th>Burst</th><th>Vũ khí</th><th>Class</th><th>Collection</th><th>Cube</th><th>Overload</th></tr></thead><tbody id="rs-off"></tbody></table></div>
   </div>
   <script>(function(){
     /* dữ liệu roster: [nền ★◆○, tên, nhãn, tier, ghi chú tier, Code, Burst, vũ khí, Class A/D/S, Collection (m=PHẢI CÓ, s=NÊN CÓ, k=KHÔNG CẦN) hoặc chữ, ghi chú Collection] ; ['G', tier, tiêu đề nhóm] */
@@ -623,15 +763,16 @@ html,body{overflow-x:clip;max-width:100%}
 ['b1','Rapi: Red Hood','','sss','','fire','III','MG','A','m10'],
 ['b1','Siren (Little Mermaid)','','sss','','wind','I','SMG','S','m9'],
 ['b2','Snow White: Heavy Arms','','sss','','water','III','SR','A','m10'],
-['b3','Scarlet: Goddeath','','sss','mới ra','fire','III','AR','A','PHẢI CÓ*'],
-['G','ss','6 NIKKE'],
+['b2','Scarlet: Goddeath','','sss','mới ra','fire','III','AR','A','m10'],
+['G','ss','7 NIKKE'],
+['b2','Scarlet: Black Shadow','in','ss','','wind','III','RL','A','Chưa có điểm'],
 ['b1','Mast: Romantic Maid','','ss','','water','II','MG','S','m10'],
 ['b1','Nayuta','','ss','','wind','II','SMG','S','m10'],
 ['b2','Liberalio','','ss','','wind','III','SR','A','m10'],
 ['b2','Ada Wong','','ss','','elec','III','RL','A','m9'],
 ['','Neon: Vision Eye','','ss','','elec','III','RL','A','m9'],
 ['','Vesti: Tactical Upgrade','','ss','','fire','III','RL','A','m8'],
-['G','s','9 NIKKE'],
+['G','s','8 NIKKE'],
 ['b1','Red Hood','','s','','iron','All','SR','A','m9'],
 ['b1','Anchor: Innocent Maid','','s','','water','II','RL','S','m8'],
 ['b2','Cinderella','','s','','elec','III','RL','D','m10'],
@@ -705,8 +846,7 @@ html,body{overflow-x:clip;max-width:100%}
 ['','Vesti','','e','','water','III','RL','A','k1'],
 ['','Rei','','e','','water','I','SMG','D','k0'],
 ['','Sin','core','e','','elec','II','AR','D','k0'],
-['G','f','2 NIKKE'],
-['','Rosanna','in','f','Tr: B','elec','I','MG','A','k0','Tr → NÊN CÓ (7)'],
+['G','f','1 NIKKE'],
 ['','Signal','core','f','','fire','II','SMG','A','k0']];
     var OFF=[
 ['G','b','2 NIKKE'],
@@ -739,7 +879,8 @@ html,body{overflow-x:clip;max-width:100%}
 ['','Emma','','e','','fire','I','MG','S','k0'],
 ['','Aria','','e','','water','II','MG','A','k0'],
 ['','Neon: Blue Ocean','out','e','','water','III','MG','A','k0'],
-['G','f','4 NIKKE'],
+['G','f','5 NIKKE'],
+['','Rosanna','out','f','Tr: B','elec','I','MG','A','k0','Tr → NÊN CÓ (7)'],
 ['','Crow','','f','','fire','III','SMG','D','k0'],
 ['','Eunhwa','out','f','','fire','II','SR','A','k0'],
 ['','Mary','out','f','','water','I','SG','S','k0'],
@@ -747,14 +888,39 @@ html,body{overflow-x:clip;max-width:100%}
     var CN={fire:'Fire',water:'Water',wind:'Wind',elec:'Electric',iron:'Iron'},CL={A:'Attacker',D:'Defender',S:'Supporter'};
     var TG={in:['in','VÀO SYNC'],out:['out','ĐÃ RÚT'],core:['core','CORE SYNC'],new:['in','MỚI']};
     var PR={m:['must','PHẢI CÓ'],s:['should','NÊN CÓ'],k:['skip','KHÔNG CẦN']};
+    /* vai trò theo chế độ: S = Story, B = Boss, P = PvP; chỉ gắn khi nikke.gg chấm ≥ SS ở chế độ đó (bản chưa Treasure, 10/11/2026) */
+    var RL={'Anis: Star':'SBP','Rapi: Red Hood':'SB','Siren (Little Mermaid)':'SB','Snow White: Heavy Arms':'SBP','Scarlet: Goddeath':'SBP','Scarlet: Black Shadow':'B','Mast: Romantic Maid':'SB','Nayuta':'SBP','Liberalio':'SBP','Ada Wong':'SB','Neon: Vision Eye':'SBP','Vesti: Tactical Upgrade':'SP','Red Hood':'P','Cinderella':'BP','Liter':'B','Scarlet':'P','Blanc':'P','Trina':'P','Rapunzel':'P','Noise':'P','Biscuit':'P','Noah':'P','Moran':'P','Jackal':'P'};
+    var RN={S:['rs','STORY'],B:['rb','BOSS'],P:['rp','PVP']};
+    function ro(n){return (RL[n]||'').split('').map(function(c){return '<i class="ro '+RN[c][0]+'">'+RN[c][1]+'</i>'}).join('')}
+    /* cube khuyến nghị (con đầu = tốt nhất, sau "/" = thay thế), theo trang nhân vật nikke.gg; Rapunzel: Sanctuary theo Prydwen; Tr = khi có Treasure. Dùng chung cho thẻ NIKKE ở mục 01, 08, 09, 10 */
+    var CB=window.NKCUBE={
+'Anis: Star':'Resilience / Bastion · đánh bộ phận: Destruction','Rapi: Red Hood':'Bastion / Resilience (đội nạp đạn nhanh: Resilience)','Siren (Little Mermaid)':'Resilience / Bastion','Snow White: Heavy Arms':'Resilience / Bastion · PvP: Tempering','Scarlet: Goddeath':'Piercing (từ cấp 13) / Resilience · Bastion',
+'Scarlet: Black Shadow':'Bastion / Resilience','Mast: Romantic Maid':'Resilience / Bastion','Nayuta':'Destruction (boss có bộ phận) / Onslaught','Liberalio':'Resilience / Bastion','Ada Wong':'Bastion / Resilience','Neon: Vision Eye':'Bastion / Resilience','Vesti: Tactical Upgrade':'Resilience / Wingman',
+'Red Hood':'Adjutant (nếu cùng cấp) / Resilience','Anchor: Innocent Maid':'Resilience / Bastion','Cinderella':'Bastion / Resilience','Milk: Blooming Bunny':'Resilience / Bastion','Anis: Sparkling Summer':'Resilience / Assault · không dùng Bastion','Rouge':'Resilience / Bastion','Ade: Agent Bunny':'Resilience / Bastion','Liter':'Bastion / Resilience',
+'Alice':'Resilience / Bastion (có 2+ dòng Max Ammo: Bastion)','Naga':'Vigor / Resilience','Tia':'Vigor / Resilience','Eunhwa: Tactical Upgrade':'Bastion / Resilience','Quency: Escape Queen':'Resilience / Bastion','Arcana: Fortune Mate':'Destruction (boss có bộ phận) / Resilience','Rapunzel: Sanctuary':'Resilience / Bastion · bộ phận: Destruction',
+'Asuka Shikinami Langley':'Bastion / Resilience','Scarlet':'Resilience / Bastion','Blanc':'Vigor / Resilience','Modernia':'Bastion / Wingman','Trina':'Vigor / Bastion','Volume':'Bastion / Resilience',
+'Helm':'Resilience · không dùng cube tăng đạn','Privaty':'Resilience · không dùng cube tăng đạn','Phantom':'Bastion / Resilience','Emma: Tactical Upgrade':'Bastion / Resilience','D: Killer Wife':'Bastion / Resilience','Tove':'Bastion / Resilience','Drake':'Resilience / Wingman · Tr: Bastion / Assault','Label':'Tempering / Vigor','Isabel':'Resilience / Wingman','Arcana':'Bastion / Resilience','Snow White':'Bastion / Resilience','Soda: Twinkling Bunny':'Bastion / Resilience','Privaty: Unkind Maid':'Bastion','Mana':'Resilience / Bastion','Noir':'Bastion / Resilience','Dorothy':'Resilience / Assault · không dùng Bastion','Snow White: Innocent Days':'Bastion / Resilience',
+'Flora':'Bastion / Resilience · Tr: Vigor','Miranda':'Bastion / Resilience','Laplace':'Resilience / Bastion','Centi':'Resilience / Bastion · PvP: Quantum','Zwei':'Bastion / Resilience','Rapunzel':'Vigor / Resilience','Noise':'Vigor / Resilience','Biscuit':'Vigor / Resilience','Alice: Wonderland Bunny':'Bastion / Resilience','Mica: Snow Buddy':'Bastion / Resilience','Chime':'Bastion / Resilience','Poli':'Vigor / Resilience','Noah':'Resilience / Bastion','Avistar':'Bastion / Resilience','Guillotine':'Bastion / Wingman (đi cùng Anis: SS: Resilience)','Rupee':'Bastion / Resilience','Soline':'Bastion / Resilience',
+'Moran':'Vigor / Resilience · Tr: Tempering / Vigor','Sugar':'Resilience / Bastion · Tr: Bastion','Diesel':'Vigor / Bastion','Milk':'Resilience / Bastion','Admi':'Resilience / Bastion','Bay':'Vigor','Exia':'Resilience · không dùng Bastion','Viper':'Resilience / Wingman','Jackal':'Resilience / Bastion · PvP: Quantum','Pepper':'Resilience / Vigor','Vesti':'Resilience / Bastion','Rei':'Vigor / Resilience','Sin':'Vigor / Resilience','Signal':'Bastion / Resilience'};
+    /* dòng Overload khuyến nghị: số dòng cần săn | dòng phụ | mức ưu tiên đầu tư. Theo bảng Gear Investment trên trang từng NIKKE của Prydwen (11/2026);
+       ghi "(nikke.gg)" là thứ tự ưu tiên theo điểm Overload của nikke.gg khi Prydwen không có; "Tr:" là khi đã lên Treasure. Dùng chung cho thẻ NIKKE ở mục 01, 08, 09, 10 */
+    var GR=window.NKGEAR={
+'Anis: Star':'4 ELE · 4 ATK · 1–3 Max Ammo | thêm: Crit, Charge DMG | Meta · chỉ làm support Re-enter thì không cần dòng','Rapi: Red Hood':'bắt buộc 3 Max Ammo | lý tưởng 4 ELE · 4 ATK · 4 Max Ammo | Meta','Siren (Little Mermaid)':'4 ELE · 4 ATK | thêm: Crit, Max Ammo | Rất cao','Snow White: Heavy Arms':'4 ELE · 4 ATK | thêm: 1 Max Ammo, 3–4 Crit Rate, 3–4 Crit DMG | Meta · Charge Speed vô dụng (thời gian nạp cố định)','Scarlet: Goddeath':'4 ELE · 4 ATK | còn lại: Crit',
+'Scarlet: Black Shadow':'ELE > ATK > Crit Rate = Crit DMG (nikke.gg)','Mast: Romantic Maid':'4 ELE · 4 ATK · 1 Max Ammo | thêm: 3 Hit Rate, 3 Max Ammo | Trung bình · xây DPS trước','Nayuta':'4 ELE · 4 ATK | thêm: Crit, Charge DMG | Rất cao · không cần Max Ammo, Charge Speed','Liberalio':'4 ELE · 4 ATK · 1 Max Ammo | thêm: 3 Charge Speed, 3 Crit DMG | Meta','Ada Wong':'4 ELE · 4 ATK · 1–2 Max Ammo | thêm: Crit DMG (đi cùng Miranda), Charge Speed (PvP) | Trung bình','Neon: Vision Eye':'4 ELE · 4 Charge Speed · 2–3 ATK · 1–2 Max Ammo (ít nhất 1) | Meta (boss)','Vesti: Tactical Upgrade':'bắt buộc 2 Max Ammo (giữ tổng đạn 16) | 4 ELE · 4 ATK · 2 Charge Speed | thêm: Crit, Max Ammo | Trung bình',
+'Red Hood':'ATK > ELE = Charge Speed (nikke.gg)','Anchor: Innocent Maid':'4 ELE · 4 ATK · 1–2 Max Ammo | Trung bình · xây DPS trước','Cinderella':'bắt buộc 1 Max Ammo | 4 ELE · 4 ATK | thêm: 1–3 Crit | Meta · tránh Charge DMG, nâng đủ 4 món (cô đổi HP thành ATK)','Milk: Blooming Bunny':'4 Max Ammo (ít nhất 3) · 4 ELE · 4 ATK | Trung bình (boss)','Anis: Sparkling Summer':'ATK > ELE = Crit Rate = Crit DMG · không lấy Max Ammo (nikke.gg)','Rouge':'bắt buộc 1–2 Max Ammo | thêm: ELE, ATK | Trung bình','Ade: Agent Bunny':'1–2 Max Ammo | thêm: ELE, ATK | Trung bình','Liter':'không cần dòng riêng, chỉ OL để lấy CP | Trung bình',
+'Alice':'Max Ammo > ATK = ELE = Charge Speed (nikke.gg) · Prydwen: cần 2 Charge Speed','Naga':'ATK = ELE > Hit Rate (nikke.gg)','Tia':'không cần dòng riêng, OL lấy CP (ưu tiên Giáp để tăng HP) | Thấp','Eunhwa: Tactical Upgrade':'4 ELE · 4 ATK · 2 Max Ammo | thêm: Crit, Max Ammo | Trung bình','Quency: Escape Queen':'bắt buộc 1–2 Hit Rate + 1–2 Max Ammo | 4 ELE · 4 ATK · 2–3 Max Ammo | thêm: 1–2 Crit | Trung bình (boss)','Arcana: Fortune Mate':'làm support: chỉ nâng cấp đồ, không reroll · làm DPS: 4 ELE · 4 ATK | thêm: Crit DMG > Crit Rate, Hit Rate | Trung bình (boss) · không cần Max Ammo nếu dùng Bastion','Rapunzel: Sanctuary':'4 ELE · 4 ATK · 1 Max Ammo | Trung bình (boss)',
+'Asuka Shikinami Langley':'bắt buộc 2–3 Max Ammo | 4 ELE · 4 ATK | Trung bình','Scarlet':'Max Ammo > ELE > ATK = Hit Rate (nikke.gg)','Blanc':'không cần dòng riêng, OL lấy CP | Thấp','Modernia':'ATK > ELE = Max Ammo > Crit Rate (nikke.gg)','Trina':'4 Charge Speed (PvP) · 1–3 Max Ammo (PvE cùng Scarlet) | thêm: ELE, ATK | Thấp','Volume':'không cần dòng, chỉ OL lấy CP khi leo Tháp | Rất thấp',
+'Helm':'Tr: 4 ELE · 4 ATK | thêm: Crit, Charge Speed (PvP), 1 Max Ammo | Meta','Privaty':'Tr: 4 ELE · 4 ATK | thêm: Crit Rate, Crit DMG | Meta · KHÔNG lấy Max Ammo','Phantom':'bắt buộc 1–2 Max Ammo | 4 ELE · 4 ATK · 2–3 Max Ammo | thêm: 2 Hit Rate, 1–2 Crit | Thấp (boss)','Emma: Tactical Upgrade':'4 ELE · 4 ATK · 4 Max Ammo | Trung bình (boss) · OL để tăng buff ATK, không cần reroll','D: Killer Wife':'1–2 Max Ammo (6 đạn lên 8 để CDR đều) | Trung bình · không cần Charge Speed','Tove':'Tr: 4 ELE · 4 ATK · 1 Max Ammo | thêm: Max Ammo | Trung bình (boss)','Drake':'Tr: 1 Max Ammo · 4 ELE · 4 ATK | thêm: 3 Max Ammo, 3 Crit Rate, 3 Crit DMG, 3 Hit Rate | Trung bình (boss)','Label':'chỉ cần nâng cấp đồ · nếu reroll: 4 ELE · 1–2 Max Ammo · 4 ATK | thêm: 2–3 Crit | Trung bình (PvP)','Isabel':'4 ELE · 4 ATK · 4 Max Ammo | Trung bình (boss) · chỉ OL khi xây cả Arcana','Arcana':'1–2 Max Ammo | thêm: 4 ELE, 4 ATK, 2–4 Charge Speed | Trung bình (boss) · chỉ OL khi xây cả Isabel','Snow White':'ATK > ELE = Crit Rate = Crit DMG (nikke.gg)','Soda: Twinkling Bunny':'1–2 Max Ammo · 4 ELE · 4 ATK | thêm: 1–2 Hit Rate, 1–2 Crit | Trung bình (boss)','Privaty: Unkind Maid':'ATK = ELE > Crit Rate (nikke.gg)','Mana':'4 ELE · 4 ATK | Trung bình (boss)','Noir':'ATK > ELE = Hit Rate > Max Ammo (nikke.gg)','Dorothy':'ATK > Hit Rate > ELE · không lấy Max Ammo (nikke.gg)','Snow White: Innocent Days':'chưa có khuyến nghị dòng (Prydwen không tải được, nikke.gg không ghi) · nếu dùng làm DPS: ELE + ATK theo quy tắc chung',
+'Flora':'4 Max Ammo · 4 ELE · 4 ATK (Max Ammo giúp cộng stack đều)','Miranda':'Tr: 4 ELE · 4 ATK | Trung bình (boss) · buff ATK không theo chỉ số của Miranda nên OL không bắt buộc','Laplace':'Tr: 4 ELE · 4 ATK · 4 Charge Speed | thêm: 0–2 Max Ammo | Trung bình (PvP)','Centi':'Tr: 4 Charge Speed · 2 Max Ammo | thêm: 4 ELE, 2 ATK | Trung bình (PvP)','Zwei':'không cần OL','Rapunzel':'Charge Speed > Max Ammo > ATK (nikke.gg)','Noise':'Charge Speed > DEF > ATK (nikke.gg)','Biscuit':'4 ELE · 4 ATK · 2–4 Charge Speed | thêm: 0–2 Max Ammo | Trung bình (PvP)','Alice: Wonderland Bunny':'1–3 Max Ammo | Rất thấp','Mica: Snow Buddy':'chưa có khuyến nghị dòng, chỉ OL lấy CP','Chime':'không cần dòng · nếu dùng với Crown: nâng cấp Mũ, Găng, Giáp | Rất thấp','Poli':'không cần dòng, OL lấy CP cho PvP','Noah':'4 Charge Speed | thêm: ATK, ELE | Trung bình (PvP)','Avistar':'không cần OL','Guillotine':'ELE > ATK = Max Ammo > Crit (nikke.gg)','Rupee':'4 ELE · 4 ATK · 4 Max Ammo (DPS cấp thấp)','Soline':'4 ELE · 4 ATK (DPS cấp thấp)',
+'Moran':'Tr: 4 ELE · 4 ATK | thêm: Crit, DEF | Trung bình · không lấy Max Ammo, OL lấy CP vẫn đáng','Sugar':'Tr: 4 ELE · 4 ATK · 1–2 Max Ammo | Cao','Diesel':'Tr: 2–3 Max Ammo | Rất thấp','Milk':'không cần','Admi':'không cần','Bay':'4 Charge Speed | thêm: ATK, ELE, DEF | Thấp (PvP)','Exia':'Tr: 4 ELE · 4 ATK | thêm: Charge Speed, Crit | Trung bình (boss) · KHÔNG lấy Max Ammo','Viper':'Tr: 4 ATK · 4 ELE · 0–4 Max Ammo | thêm: 1–4 Hit Rate | Thấp (boss)','Jackal':'4 Charge Speed · 4 ELE · 4 ATK | thêm: DEF | Thấp (PvP)','Pepper':'4 ATK · 4 ELE | thêm: DEF | Thấp (PvP)','Vesti':'4 ELE · 4 ATK | thêm: Charge Speed · chỉ để lấy CP, leo Tháp Elysion','Rei':'không cần','Sin':'chưa có khuyến nghị dòng, chỉ OL lấy CP','Signal':'chưa có khuyến nghị dòng, chỉ OL lấy CP'};
     function tb(t){return '<span class="tb t-'+t+'">'+t.toUpperCase()+'</span>'}
     function build(id,data){
       document.getElementById(id).innerHTML=data.map(function(r){
-        if(r[0]==='G')return '<tr class="grp"><td colspan="8">'+tb(r[1])+r[2]+'</td></tr>';
+        if(r[0]==='G')return '<tr class="grp"><td colspan="10">'+tb(r[1])+r[2]+'</td></tr>';
         var tg=TG[r[2]],p=r[9],m=/^([msk])(\d+)$/.exec(p);
         var pri=m?'<span class="pri '+PR[m[1]][0]+'">'+PR[m[1]][1]+' ('+m[2]+')</span>':'<span class="pri '+(p.indexOf('PHẢI')===0?'must':'na')+'">'+p+'</span>';
         var cls=[r[0],r[2]==='out'?'out':''].join(' ').trim();
-        return '<tr'+(cls?' class="'+cls+'"':'')+'><td>·</td><td><span class="mk"></span>'+r[1]+(tg?'<i class="st '+tg[0]+'">'+tg[1]+'</i>':'')+'</td><td>'+tb(r[3])+(r[4]?' <span class="tr">'+r[4]+'</span>':'')+'</td><td><span class="code '+r[5]+'">'+CN[r[5]]+'</span></td><td>'+r[6]+'</td><td>'+r[7]+'</td><td>'+CL[r[8]]+'</td><td>'+pri+(r[10]?' <span class="tr">'+r[10]+'</span>':'')+'</td></tr>';
+        return '<tr'+(cls?' class="'+cls+'"':'')+'><td>·</td><td class="nmc"><span class="mk"></span>'+r[1]+(r[0]==='b1'?'<i class="pil">TRỤ CỘT</i>':'')+ro(r[1])+(tg?'<i class="st '+tg[0]+'">'+tg[1]+'</i>':'')+'</td><td>'+tb(r[3])+(r[4]?' <span class="tr">'+r[4]+'</span>':'')+'</td><td><span class="code '+r[5]+'">'+CN[r[5]]+'</span></td><td>'+r[6]+'</td><td>'+r[7]+'</td><td>'+CL[r[8]]+'</td><td>'+pri+(r[10]?' <span class="tr">'+r[10]+'</span>':'')+'</td><td class="cbc">'+(id==='rs-on'?(CB[r[1]]||'—'):'—')+'</td><td class="grc">'+(id==='rs-on'?(GR[r[1]]||'—'):'—')+'</td></tr>';
       }).join('');
     }
     build('rs-on',ON);build('rs-off',OFF);
@@ -788,7 +954,7 @@ html,body{overflow-x:clip;max-width:100%}
     <div>
       <table><thead><tr><th>Hồi chiêu</th><th>NIKKE</th></tr></thead><tbody>
         <tr><td><strong>20s</strong></td><td>Siren, Anis: Star, Nayuta, Naga, Rapunzel: Sanctuary, Liter, Emma: TU, D: Killer Wife, Eunhwa: TU, Arcana: Fortune Mate</td></tr>
-        <tr><td><strong>40s</strong></td><td>Tia, Mast: Romantic Maid, Anchor: Innocent Maid, Red Hood, Rapi: Red Hood, Alice, Liberalio, Cinderella, Ada Wong, Snow White: Heavy Arms, Vesti: TU, Quency: Escape Queen, Arcana, Flora</td></tr>
+        <tr><td><strong>40s</strong></td><td>Tia, Mast: Romantic Maid, Anchor: Innocent Maid, Red Hood, Rapi: Red Hood, Alice, Liberalio, Scarlet: Black Shadow, Scarlet: Goddeath, Cinderella, Ada Wong, Snow White: Heavy Arms, Vesti: TU, Quency: Escape Queen, Arcana, Flora</td></tr>
         <tr><td>Chưa xác minh</td><td>Rouge</td></tr>
       </tbody></table>
       <p class="note">Liter 20s đã đối chiếu trên trang nhân vật của nikke.gg; các con mới thêm cũng lấy từ nikke.gg.</p>
@@ -845,7 +1011,7 @@ html,body{overflow-x:clip;max-width:100%}
       <ul style="margin-top:10px"><li><strong>Thiếu Crown:</strong> đây là Burst II chủ lực trong hầu hết đội mạnh nhất. Các đội dưới thay bằng Mast: Romantic Maid, Anchor: Innocent Maid, Nayuta hoặc Naga.</li><li><strong>Helm, Privaty</strong> chỉ đáng dùng khi đã có Treasure, nên luôn kèm phương án thay thế.</li></ul>
       <p style="margin-top:14px"><strong>Các kiểu cơ chế chung và cách khắc chế</strong></p>
       <table><thead><tr><th>Cơ chế</th><th>Cách khắc chế</th><th>NIKKE của bạn làm được</th></tr></thead><tbody>
-        <tr><td><strong>Khiên thuộc tính</strong> (QTE theo Code)</td><td>Boss bật khiên, hiện vài vòng tròn; chỉ NIKKE đúng Code bắn vỡ được. Trượt thường thua cả đội.</td><td><span class="code iron">Iron</span> Red Hood, Tia, Liter<br><span class="code wind">Wind</span> Siren, Nayuta, Liberalio<br><span class="code water">Water</span> Mast, Anchor, Snow White: HA, Quency<br><span class="code fire">Fire</span> Rapi: RH, Alice, bộ Absolute, Arcana: FM<br><span class="code elec">Electric</span> Anis: Star, Naga, Cinderella, Ada</td></tr>
+        <tr><td><strong>Khiên thuộc tính</strong> (QTE theo Code)</td><td>Boss bật khiên, hiện vài vòng tròn; chỉ NIKKE đúng Code bắn vỡ được. Trượt thường thua cả đội.</td><td><span class="code iron">Iron</span> Red Hood, Tia, Liter<br><span class="code wind">Wind</span> Siren, Nayuta, Liberalio, Scarlet: BS<br><span class="code water">Water</span> Mast, Anchor, Snow White: HA, Quency<br><span class="code fire">Fire</span> Rapi: RH, Alice, bộ Absolute, Arcana: FM<br><span class="code elec">Electric</span> Anis: Star, Naga, Cinderella, Ada</td></tr>
         <tr><td><strong>QTE toàn màn hình</strong> (Special Interruption)</td><td>Boss rời sân, các vòng hiện theo thứ tự; vài boss là trò nhớ thứ tự, có vòng xám bắn vào là hỏng. Trượt gây sát thương lớn hoặc thua cả đội.</td><td>Kỹ năng ngắm, không phụ thuộc đội hình</td></tr>
         <tr><td><strong>Đòn xuyên giáp che</strong></td><td>Núp không có tác dụng; cần hồi máu hoặc khiên.</td><td>Naga (hồi máu), Tia (khiên)</td></tr>
         <tr><td><strong>Đòn không bị taunt kéo</strong></td><td>Defender không gánh thay được; núp giáp với con đang bị nhắm, hoặc hồi máu.</td><td>Naga</td></tr>
@@ -864,7 +1030,7 @@ html,body{overflow-x:clip;max-width:100%}
       <div class="boss-chips"><span class="code iron">Boss: Iron</span><span class="code wind">Mang: Wind</span><span class="code elec">Tránh: Electric</span></div></div>
     </div>
     <div>
-      <p><strong>Đội tham khảo mạnh nhất là Little Mermaid, Nayuta, Liberalio, Scarlet: Black Shadow, Crown; bạn có sẵn 3/5 con, đều Wind.</strong> Phá chân trước trước khi Kraken tung Big Leg Smash. Không mang Electric: laser chân sau hạ chúng trong 1 phát. <a class="cite" href="https://nikke.gg/anomaly-interception-kraken/" target="_blank">[10]</a></p>
+      <p><strong>Đội tham khảo mạnh nhất là Little Mermaid, Nayuta, Liberalio, Scarlet: Black Shadow, Crown; bạn có 4/5 con (thiếu Crown), đều Wind.</strong> Phá chân trước trước khi Kraken tung Big Leg Smash. Không mang Electric: laser chân sau hạ chúng trong 1 phát. <a class="cite" href="https://nikke.gg/anomaly-interception-kraken/" target="_blank">[10]</a></p>
       <p><strong>Cơ chế &amp; cách khắc chế</strong></p>
       <table><thead><tr><th>Đòn</th><th>Tác dụng</th><th>Khắc chế</th></tr></thead><tbody>
         <tr><td><strong>Big Leg Smash</strong></td><td>Vung xúc tu trước, sát thương lớn cả đội. Một trong các đòn nguy hiểm nhất.</td><td>Phá xúc tu to phía trước (có lõi) trước khi boss tung đòn.</td></tr>
@@ -879,10 +1045,10 @@ html,body{overflow-x:clip;max-width:100%}
         <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span></div>
         <div class="nk wind"><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span></div>
         <div class="nk wind"><span class="nm">Liberalio</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
-        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
+        <div class="nk wind"><span class="nm">Scarlet: Black Shadow</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">Mới vào Sync</span></div>
         <div class="nk iron"><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>40s</span></div>
       </div>
-      <p class="note">Red Hood đứng cuối để không chen vào Burst I/II. Liberalio và Alice thay phiên Burst III; Red Hood chỉ Burst khi cả hai đang hồi chiêu.</p>
+      <p class="note">Gần đúng đội tham khảo của nikke.gg, chỉ đổi Crown → Red Hood. Red Hood đứng cuối để không chen vào Burst I/II. Liberalio và Scarlet: Black Shadow thay phiên Burst III; Red Hood chỉ Burst khi cả hai đang hồi chiêu. Cả 4 con Wind đều phá được khiên Vertical Screw. Scarlet: BS đang 0 Limit Break nên có thể chưa mạnh bằng Alice; nếu đội đánh yếu hơn, đổi lại Alice.</p>
       <div class="team"><span class="lab">B</span>
         <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span></div>
         <div class="nk water"><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>40s</span></div>
@@ -1008,10 +1174,10 @@ html,body{overflow-x:clip;max-width:100%}
         <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span></div>
         <div class="nk wind"><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span></div>
         <div class="nk fire"><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
-        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
-        <div class="nk fire"><span class="nm">Scarlet: Goddeath</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">hoặc Phantom (Treasure)</span></div>
+        <div class="nk fire"><span class="nm">Scarlet: Goddeath</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">DPS chính, Burst trước</span></div>
+        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">hoặc Phantom (Treasure)</span></div>
       </div>
-      <p class="note">3 Burst III: khi để auto, Scarlet: Goddeath gần như không Burst. Rapunzel: Sanctuary hoặc Arcana: Fortune Mate (đều Fire, Burst II 20s, đã vào Synchro) thay được Nayuta để cả đội thêm Fire. nikke.gg chấm Arcana: FM hạng S ở Boss.</p>
+      <p class="note"><strong>Đã sửa 10/11:</strong> Scarlet: Goddeath đứng trước Alice. Theo Prydwen, 82–90% sát thương của cô ấy nằm trong lượt Burst của chính cô ấy, nên trước đây đứng thứ ba (gần như không Burst khi để auto) là lãng phí. Giờ cô ấy và Rapi: Red Hood thay phiên Burst III; Alice đứng cuối, chủ yếu bắn thường xuyên giáp. Prydwen còn gọi Goddeath là bản mạnh hơn Alice. Rapunzel: Sanctuary hoặc Arcana: Fortune Mate (đều Fire, Burst II 20s, đã vào Synchro) thay được Nayuta để cả đội thêm Fire. nikke.gg chấm Arcana: FM hạng S ở Boss.</p>
       <div class="team"><span class="lab">C</span>
         <div class="nk fire"><span class="nm">Emma: TU</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">Hồi máu cả đội</span></div>
         <div class="nk fire"><span class="nm">Eunhwa: TU</span><span class="meta"><span class="bu">II</span><svg><use href="#i-att"/></svg>20s</span><span class="why">Debuff nhận thêm sát thương</span></div>
@@ -1020,6 +1186,18 @@ html,body{overflow-x:clip;max-width:100%}
         <div class="nk fire"><span class="nm">D: Killer Wife</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">CDR</span></div>
       </div>
       <p class="note"><strong>Đội "Absolute Fire" của GameWith (Nhật), bạn có đủ cả 5 con.</strong> Cả đội đều Fire nên NIKKE nào cũng phá được khiên Super Quiver Blade. Emma: TU và Eunhwa: TU đứng cùng nhau thì cả đội +31% sát thương chuẩn, sát thương chuẩn bỏ qua phòng thủ. Emma: TU hồi máu cả đội đều đặn, đỡ được Head Rush. Emma: TU ở vị trí 1 nên Burst I mọi lượt. D: Killer Wife đứng cuối, gần như không Burst, nhưng vẫn giảm 7s hồi chiêu cho cả đội sau mỗi 8 phát bắn tích lực đầy. Rapi: Red Hood có đủ Burst I khác trong đội nên gây sát thương tối đa. Đội này chưa có nguồn nào thử riêng ở Indivilia. Nên tự bấm Eunhwa: TU để Burst nhanh, và giữ cả Emma: TU lẫn Eunhwa: TU sống. <a class="cite" href="https://www.prydwen.gg/nikke/characters/eunhwa-tactical-upgrade" target="_blank">[23]</a><a class="cite" href="https://nikke.gg/characters/eunhwa-tactical-upgrade" target="_blank">[24]</a></p>
+      <div class="team"><span class="lab">D</span>
+        <div class="nk fire"><span class="nm">D: Killer Wife</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">CDR, thay Liter</span></div>
+        <div class="nk fire"><span class="nm">Rapunzel: Sanctuary</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">Buff Scarlet: Goddeath, thay Grave</span></div>
+        <div class="nk fire"><span class="nm">Scarlet: Goddeath</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">DPS chính</span></div>
+        <div class="nk fire"><span class="nm">Alice</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">Xuyên giáp, thay Rei Ayanami</span></div>
+        <div class="nk water"><span class="nm">Privaty</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>Attacker</span><span class="why">DPS phụ</span></div>
+      </div>
+      <p class="note"><strong>Đội Scarlet: Goddeath, ghép từ đội 542 của Prydwen</strong> (Liter · Grave · Scarlet: Goddeath · Rei Ayanami · Privaty, dành cho Union/Solo Raid boss yếu Fire). Bạn chưa có Grave và Rei, nên mình đổi:
+        <br>• Grave → Rapunzel: Sanctuary: cùng là Burst II Fire Supporter, và Prydwen nói Rapunzel: Sanctuary hợp với Scarlet: Goddeath và Marian: Queen.
+        <br>• Rei Ayanami → Alice: chính Prydwen ghi Alice thay được Rei.
+        <br>• Liter → D: Killer Wife: Liter là Iron, bị Indivilia (boss Wind) khắc. D: Killer Wife cũng là Burst I 20s có CDR, lại là Fire.
+        <br>Burst I và II đều 20s nên chuỗi không kẹt; Scarlet: Goddeath và Alice thay phiên Burst III, Privaty đứng cuối gần như không Burst. Đây là bản mình ghép, chưa có nguồn thử ở Indivilia. Khi có Mint + Prika, Prydwen gọi đó là cặp hỗ trợ hợp nhất với Goddeath (đội 541: Liter · Mint · Scarlet: Goddeath · Alice · Prika). <a class="cite" href="https://www.prydwen.gg/nikke/characters/scarlet-goddeath" target="_blank">[38]</a></p>
       <p class="note">Indivilia miễn debuff, nên Phantom có Treasure cộng dao liên tục và gây sát thương lớn dù khác Code; tương tác này có thể bị sửa. Hạn chế dùng Red Hood và NIKKE Iron vì boss khắc Iron.</p>
     </div>
   </div>
@@ -1122,7 +1300,7 @@ html,body{overflow-x:clip;max-width:100%}
       <p>Stage hiện Code của quái trước khi vào trận. Giữ lõi Tia · Liter · Naga, rồi đổi DPS sang Code khắc quái. Vòng khắc: Fire → Wind → Iron → Electric → Water → Fire.</p>
       <table><thead><tr><th>Quái là</th><th>Mang Code</th><th>DPS của bạn (LV 257)</th></tr></thead><tbody>
         <tr><td><span class="code wind">Wind</span></td><td><span class="code fire">Fire</span></td><td>Rapi: Red Hood, Alice, Modernia, Scarlet: Goddeath; hoặc dùng cả đội D (toàn Fire)</td></tr>
-        <tr><td><span class="code iron">Iron</span></td><td><span class="code wind">Wind</span></td><td>Liberalio; Nayuta thay Naga làm Burst II</td></tr>
+        <tr><td><span class="code iron">Iron</span></td><td><span class="code wind">Wind</span></td><td>Liberalio, Scarlet: Black Shadow; Nayuta thay Naga làm Burst II</td></tr>
         <tr><td><span class="code elec">Electric</span></td><td><span class="code iron">Iron</span></td><td>Red Hood, Snow White, Laplace (cần Treasure để mạnh)</td></tr>
         <tr><td><span class="code water">Water</span></td><td><span class="code elec">Electric</span></td><td>Cinderella, Ada Wong, Scarlet, Neon: Vision Eye</td></tr>
         <tr><td><span class="code fire">Fire</span></td><td><span class="code water">Water</span></td><td>Snow White: Heavy Arms, Quency: Escape Queen, Phantom; đội B (Mast, Anchor) cũng là Water</td></tr>
@@ -1222,9 +1400,41 @@ html,body{overflow-x:clip;max-width:100%}
         <div class="nk wind"><span class="nm">Liberalio</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
         <div class="nk iron"><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>40s</span><span class="why">Đứng phải cùng</span></div>
       </div>
-      <p class="note">nikke.gg nói thường chỉ người may mắn mới đủ 5 con Pilgrim, còn bạn có 17 con. Mỗi bậc đều có 20s (Siren, Nayuta), Red Hood lấp mọi bậc. Đây là đội mình ghép, chưa có nguồn thử. Tầng boss: đổi Liberalio → Snow White: Heavy Arms hoặc Cinderella. Đông quái: Modernia hoặc Scarlet. Cần hồi máu: Rapunzel; tầng boss có bộ phận: Dorothy (Burst I 20s, buff sát thương lên bộ phận). Rapi: Red Hood là Over-spec nên cũng vào được tháp này: thay Liberalio khi quái yếu Fire. Anis: Star và Neon: Vision Eye cũng vào được, nhưng Anis: Star phải là Burst I duy nhất nên không đi chung với Siren.</p>
+      <p class="note">nikke.gg nói thường chỉ người may mắn mới đủ 5 con Pilgrim, còn bạn có 18 con (thêm Scarlet: Black Shadow). Mỗi bậc đều có 20s (Siren, Nayuta), Red Hood lấp mọi bậc. Đây là đội mình ghép, chưa có nguồn thử. <strong>Scarlet: Black Shadow</strong> (Pilgrim, Wind, Burst III) thay Liberalio khi quái là Iron, hoặc đi cùng Liberalio thay Scarlet: Goddeath. Tầng boss: đổi Liberalio → Snow White: Heavy Arms hoặc Cinderella. Đông quái: Modernia hoặc Scarlet. Cần hồi máu: Rapunzel; tầng boss có bộ phận: Dorothy (Burst I 20s, buff sát thương lên bộ phận). Rapi: Red Hood là Over-spec nên cũng vào được tháp này: thay Liberalio khi quái yếu Fire. Anis: Star và Neon: Vision Eye cũng vào được, nhưng Anis: Star phải là Burst I duy nhất nên không đi chung với Siren.</p>
 
-      <p><strong>Tribe Tower chính</strong> · mọi ngày, dùng NIKKE nào cũng được: dùng đội Story A hoặc B ở mục 09, đổi DPS theo Code của tầng.</p>
+      <p class="tw-h"><span class="tw-lg" style="font-family:var(--head);color:#fff;font-size:12px;letter-spacing:.08em">ALL</span><span><strong>Tribe Tower chính</strong> · mở mọi ngày · NIKKE hãng nào cũng được, kể cả Abnormal (Ada Wong, Asuka)</span></p>
+      <div class="team"><span class="lab">A</span>
+        <div class="nk elec"><span class="nm">Anis: Star</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>20s</span><span class="why">Burst I duy nhất</span></div>
+        <div class="nk water"><span class="nm">Anchor: Innocent Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>40s</span></div>
+        <div class="nk water"><span class="nm">Mast: Romantic Maid</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>40s</span></div>
+        <div class="nk fire"><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
+        <div class="nk water"><span class="nm">Snow White: Heavy Arms</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
+      </div>
+      <p class="note"><strong>Đội mạnh nhất cho tầng boss và tầng khó.</strong> Đây là đội 5 con phổ biến nhất trong khung NIKKE META (Anis: Star · Crown · Helm · Rapi: Red Hood · Snow White: HA, 116 người dùng), đổi Crown → Anchor và Helm → Mast vì bạn chưa có Crown và Helm chưa có Treasure. Mỗi bậc đều có con thay phiên: Anchor/Mast ở Burst II, Rapi: Red Hood/Snow White: HA ở Burst III. Khi Helm đã có Treasure, cho Helm thay Snow White: HA. <a class="cite" href="https://nikke.gg/meta/?view=squads" target="_blank">[31]</a></p>
+      <div class="team"><span class="lab">B</span>
+        <div class="nk iron"><span class="nm">Tia</span><span class="meta"><span class="bu">I</span><svg><use href="#i-def"/></svg>40s</span><span class="why">Khiên, taunt</span></div>
+        <div class="nk iron"><span class="nm">Liter</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">CDR</span></div>
+        <div class="nk elec"><span class="nm">Naga</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span><span class="why">Hồi máu</span></div>
+        <div class="nk fire"><span class="nm">Rapi: Red Hood</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
+        <div class="nk iron"><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>40s</span></div>
+      </div>
+      <p class="note"><strong>Đội để auto cho tầng nhiều đợt quái (Destroy, Defense, Base).</strong> Giống đội Story A ở mục 09: có CDR, khiên và hồi máu nên bền, Full Burst quay vòng nhanh. Tầng đông quái nhỏ: đổi Red Hood → Modernia.</p>
+      <div class="team"><span class="lab">C</span>
+        <div class="nk wind"><span class="nm">Siren</span><span class="meta"><span class="bu">I</span><svg><use href="#i-sup"/></svg>20s</span></div>
+        <div class="nk wind"><span class="nm">Nayuta</span><span class="meta"><span class="bu">II</span><svg><use href="#i-sup"/></svg>20s</span></div>
+        <div class="nk wind"><span class="nm">Liberalio</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span></div>
+        <div class="nk wind"><span class="nm">Scarlet: Black Shadow</span><span class="meta"><span class="bu">III</span><svg><use href="#i-att"/></svg>40s</span><span class="why">DPS Wind</span></div>
+        <div class="nk iron"><span class="nm">Red Hood</span><span class="meta"><span class="bu">All</span><svg><use href="#i-att"/></svg>40s</span></div>
+      </div>
+      <p class="note"><strong>Khi quái là Iron (mang Wind).</strong> Giống đội Kraken A ở mục 08: 4 con Wind Siren · Nayuta · Liberalio · Scarlet: Black Shadow; Siren và Nayuta cùng 20s nên Burst không bị kẹt. Cần xuyên giáp thì đổi Scarlet: BS → Alice.</p>
+      <table><thead><tr><th>Quái của tầng là</th><th>Dùng đội</th><th>Đổi thêm</th></tr></thead><tbody>
+        <tr><td><span class="code wind">Wind</span></td><td>A hoặc Absolute (Elysion A)</td><td>Cả đội Fire: Emma: TU · Eunhwa: TU · Vesti: TU · Rapi: Red Hood · D: Killer Wife</td></tr>
+        <tr><td><span class="code iron">Iron</span></td><td>C</td><td>Tránh mang Electric</td></tr>
+        <tr><td><span class="code elec">Electric</span></td><td>B</td><td>3 con Iron (Tia, Liter, Red Hood) sẵn có; thêm Snow White thay Rapi: Red Hood nếu thiếu sát thương</td></tr>
+        <tr><td><span class="code water">Water</span></td><td>A, đổi Snow White: HA → Cinderella</td><td>Hoặc Ada Wong, Neon: Vision Eye (Electric)</td></tr>
+        <tr><td><span class="code fire">Fire</span></td><td>A</td><td>Đã có 3 con Water; thêm Quency: Escape Queen thay Rapi: Red Hood</td></tr>
+      </tbody></table>
+      <p class="note">Tháp chính khác tháp hãng ở chỗ không giới hạn hãng, nên dùng được Anis: Star cùng cặp Maid (khác hãng nhau) trong một đội. Thứ tự đứng theo quy tắc mục 07. Đây là đội mình ghép từ roster LV 257 của bạn, chưa có nguồn nào thử riêng cho tháp chính.</p>
       <p class="tw-h"><span class="tw-lg"><img src="Manufacturer/Abnormal_logo.webp" alt="Abnormal"></span><span class="note">Bảng đội tháp của nikke.gg cập nhật 04/2025 nên chưa có nhiều NIKKE mới. <strong>Ada Wong và Asuka là hãng Abnormal</strong>, không vào được tháp nhà sản xuất nào. <a class="cite" href="https://nikke.gg/tribe-tower-compositions/" target="_blank">[28]</a></span></p>
     </div>
   </div>
@@ -1234,16 +1444,43 @@ html,body{overflow-x:clip;max-width:100%}
   <div class="sec-head"><span class="sec-no">✎</span><div><h2>Ghi chú</h2><p>Nhật ký mọi thay đổi của Report, xếp theo ngày (mới nhất trên cùng) · bấm vào ngày để xem chi tiết</p></div></div>
 
   <details class="log todo">
-    <summary><span class="d">Việc nên làm tiếp</span><span class="c">2 việc</span></summary>
+    <summary><span class="d">Việc nên làm tiếp</span><span class="c">1 việc</span></summary>
     <ul>
-      <li><strong>Khi cần thêm ô Synchro:</strong> rút Rosanna trước (chưa có Treasure chỉ tier F).</li>
       <li><strong>Treasure đầu tiên nên nâng: Moran.</strong> Prydwen xếp ưu tiên số 1 trong mọi bản Treasure (D → SSS trên nikke.gg); lựa chọn thứ hai là Privaty nếu ưu tiên đánh boss. Cần búp bê SR cấp 15 và 2 lần Limit Break.</li>
     </ul>
   </details>
 
-  <details class="log">
-    <summary><span class="d">08/11/2026 · Chủ Nhật</span><span class="c">3 thay đổi</span></summary>
+  <details class="log" open>
+    <summary><span class="d">10/11/2026 · Thứ Ba</span><span class="c">13 thay đổi</span></summary>
     <ol>
+      <li><b>10:46</b> <strong>Ảnh nền mục 01 nhận thêm kiểu tên file có gạch dưới</strong> Ngoài <code>anchor-innocent-maid.webp</code>, trang giờ nhận cả <code>Anchor_Innocent_Maid.webp</code> (viết hoa như tên NIKKE, cách bằng dấu gạch dưới, bỏ dấu hai chấm và phần trong ngoặc).</li>
+<li><b>03:50</b> <strong>Thêm ảnh NIKKE làm nền cho 24 thẻ ở mục 01</strong> Ảnh lấy từ thư mục <code>nikke/</code> (tên file theo tên NIKKE, vd <code>mast-romantic-maid.webp</code>), đặt ở góc phải thẻ, mờ nhẹ và nhạt dần sang trái. Tên, loại và lý do được dồn sang trái, dòng Skill/Cube/Overload bắt đầu dưới cằm nên chữ không đè lên mặt. Thẻ nào thiếu ảnh thì giữ nguyên như cũ.</li>
+<li><b>03:20</b> <strong>Thêm gợi ý Overload (Gear Investment) cho từng NIKKE</strong> (bạn yêu cầu). Mục 06: thêm cột <strong>Overload</strong> cho cả 81 con Đã Sync: số dòng cần săn (ELE, ATK, Max Ammo, Charge Speed…), dòng phụ, dòng bắt buộc và mức ưu tiên đầu tư, lấy từ mục Gear Investment trên trang từng NIKKE của Prydwen. Khi Prydwen không ghi dòng cụ thể thì dùng thứ tự điểm Overload của nikke.gg (có ghi "(nikke.gg)"); 12 con mạnh lên nhờ Treasure (Helm, Privaty, Moran, Tove, Drake, Sugar…) ghi theo bản Treasure với tiền tố "Tr:". Mục 01, 08, 09, 10: mỗi thẻ NIKKE có thêm dòng "Overload:" (3 thẻ đã ghi sẵn Overload trong dòng Skill giữ nguyên). Thêm chú thích cách đọc và quy tắc chung (thứ tự OL Mũ &gt; Găng &gt; Giáp &gt; Giày, giá trị dòng tối thiểu). Snow White: Innocent Days, Mica: Snow Buddy, Sin, Signal chưa có khuyến nghị ở cả hai nguồn. Thêm nguồn [41].</li>
+      <li><b>02:30</b> <strong>Thêm cube cho từng NIKKE</strong> (bạn yêu cầu). Mục 06: thêm cột <strong>Cube</strong> cho cả 81 con Đã Sync (cube tốt nhất / thay thế, kèm cube khi có Treasure và cube PvP nếu khác), lấy từ trang nhân vật nikke.gg; Rapunzel: Sanctuary và Scarlet: Goddeath theo Prydwen. Mục 01, 08, 09, 10: mỗi thẻ NIKKE có thêm dòng "Cube:" lấy từ cùng bảng (3 thẻ ở mục 01 đã ghi cube trong dòng Skill thì giữ nguyên). Thêm chú thích cách đọc cột Cube ở mục 06. Bảng Chưa Sync để trống vì đang LV 01.</li>
+      <li><b>02:20</b> <strong>Mục 01: thẻ Rapunzel: Sanctuary có khuyến nghị Skill</strong> (bạn góp ý: nikke.gg chưa có thì phải tìm nguồn khác). nikke.gg vẫn ghi "đang thử nghiệm" nên mình lấy từ Prydwen: S2 ≥ S1 &gt; Burst, 4/4/4 → 7/7/7 → 7/10/7, không cần 10/10/10 vì buff ít tăng theo cấp. Cube Resilience (nhiều Max Ammo thì Bastion), Overload 4 Elemental DMG + 4 ATK + 1 Max Ammo. Prydwen chấm Story B, Boss A, PvP B, và lưu ý buff bị động của cô ấy chỉ tác dụng lên Scarlet: Goddeath và Marian: Queen. Thêm nguồn [40]. Từ nay, phần nào nikke.gg chưa có dữ liệu sẽ lấy từ Prydwen hoặc nguồn khác, không để trống.</li>
+      <li><b>02:15</b> <strong>Mục 06: thêm nhãn chế độ STORY / BOSS / PVP</strong> (bạn góp ý). Đọc điểm Story, Boss, PvP trên trang nhân vật nikke.gg của cả 81 con Đã Sync; con nào đạt SS trở lên ở chế độ nào thì gắn nhãn đó (11 STORY, 13 BOSS, 18 PVP). Nhóm <strong>Trụ cột ★</strong> làm nổi hơn: nền vàng đậm hơn, vạch vàng bên trái, tên in đậm, ★ to hơn, thêm nhãn TRỤ CỘT (cả trên điện thoại). ◆ Chuyên boss và ○ Theo dõi giữ nguyên. Chú thích mới ở đầu mục 06, kèm danh sách con chỉ mạnh PvP; lệnh Cập Nhật Tier List nhắc kiểm tra lại nhãn chế độ. Thêm nguồn [39].</li>
+      <li><b>02:05</b> <strong>Scarlet: Goddeath có đánh giá đầy đủ</strong> (Prydwen SSS cả Story, Boss, PvP; nikke.gg Combined SSS). Mục 01: chuyển thẻ từ nhóm Theo dõi sang Chuyên boss (2/13 đội), thêm skill Burst ≈ S1 &gt; S2 · 4/4/4 → 7/7/7 → 10/10/10, cube Piercing (từ cấp 13) hoặc Resilience/Bastion 15, Overload 4 Elemental DMG + 4 ATK. Mục 06: nền ○ → ◆, Collection "PHẢI CÓ*" → PHẢI CÓ (10). Mục 07: thêm vào nhóm Burst 40s. Thêm nguồn [38].</li>
+      <li><b>02:05</b> Mục 08 Indivilia B: đổi chỗ Scarlet: Goddeath lên trước Alice, vì 82–90% sát thương của cô ấy nằm trong lượt Burst của chính cô ấy (trước đó đứng thứ ba, gần như không Burst khi để auto).</li>
+      <li><b>02:05</b> Mục 08: thêm <strong>Indivilia D</strong> (D: Killer Wife · Rapunzel: Sanctuary · Scarlet: Goddeath · Alice · Privaty), ghép từ đội 542 của Prydwen. <strong>Đính chính:</strong> lúc chat mình gợi ý Liter, nhưng Liter là Iron, bị Indivilia khắc, nên trong Report đổi thành D: Killer Wife (Fire, cùng Burst I 20s có CDR).</li>
+      <li><b>02:05</b> Tổng số đội Anomaly Interception 12 → 13: cập nhật mẫu số "/12" thành "/13" ở mục 01, đầu trang và mục W; Alice 3 → 4 đội. Ô số liệu đầu trang "+8 con chuyên boss" → "+10" (đã thiếu Scarlet: Black Shadow từ 08/11, nay thêm Scarlet: Goddeath).</li>
+      <li><b>01:55</b> <strong>Kiểm tra tier list</strong> bằng nút Cập Nhật Tier List: nikke.gg Combined (11/2026, 227 NIKKE) <strong>không có con nào của bạn lên hay xuống tier</strong>, kể cả tier khi có Treasure. 5 con bạn chưa có trong khung NIKKE META cũng giữ nguyên (Crown, Cinderella: CW, Marian: Queen SSS · Dorothy: Serendipity S · Mihara: Bonding Chain A). Thứ tự 2 bảng Đã Sync / Chưa Sync giữ nguyên. Prydwen (cập nhật 09/11) đọc được bảng Story, chỉ để tham khảo, không dùng thay cột Tier.</li>
+      <li><b>01:55</b> <strong>Sửa lỗi:</strong> nhãn nhóm S ở bảng Đã Sync ghi 9 NIKKE, thực tế có 8 (Red Hood, Anchor: IM, Cinderella, Milk: BB, Anis: SS, Rouge, Ade: AB, Liter). Tổng Đã Sync vẫn đúng 81. Đổi ngày đầu trang sang 10/11.</li>
+      <li><b>01:48</b> <strong>Cập nhật NIKKE META</strong> (nikke.gg, Raids &amp; bosses, 12.206 chỉ huy · 7.160 union · roster 31/10–09/11). Tab NIKKE: Marian: Queen lên hạng 12 (▲6,8), Scarlet: Black Shadow xuống hạng 13; Naga và Anchor đổi chỗ (22 ↔ 23); thêm dòng tăng/giảm trong tuần. Tab Squad: bộ 3 số 4 và 5 đổi chỗ; bộ 3 số 8 mới là Anis: Star + Neon: VE + Marian: Queen (bạn thiếu Marian), thay Anis: Star + Nayuta + Cinderella: CW; đội 5 con số 6 và 8 đổi chỗ, cập nhật số người. Tab Treasure: cập nhật %; Rosanna đổi ✔ → LV 01 vì đã rút khỏi Synchro ngày 08/11. Top 25 vẫn thiếu 5 con: Crown, Cinderella: CW, Marian: Queen, Dorothy: Serendipity, Mihara: Bonding Chain.</li>
+    </ol>
+  </details>
+  <details class="log">
+    <summary><span class="d">08/11/2026 · Chủ Nhật</span><span class="c">13 thay đổi</span></summary>
+    <ol>
+      <li><b>23:25</b> Mục W: thêm <strong>Phương án 2 · NIKKE mới + bản trùng</strong> (bạn góp ý: con mới cũng đáng, nhất là cho Tribe Tower). 7 con mới: Soline: Frost Ticket (Elysion), Ein, Laplace: Ultimate Hero (Missilis), Mint + Prika (Tetra), Crown, Mihara: Bonding Chain (Pilgrim/Over-spec); 13 bản trùng ưu tiên con Treasure và trụ cột. Kèm cách chọn giữa 2 phương án, lưu ý ô Synchro đang đầy, nguồn [35]–[37]. Đề xuất cũ đổi tên thành Phương án 1, giữ nguyên 20 con.</li>
+      <li><b>23:25</b> <strong>Sửa lỗi:</strong> "Frica" trong bài Gamemeca là <strong>Prika</strong> (Tetra, theo NIKKE Wiki). Sửa ghi chú Tetra ở Phương án 1.</li>
+      <li><b>23:10</b> Thêm mục <strong>W · Revise Wishlist</strong> giữa mục 01 và 02 (giữ nguyên số các mục khác để không lệch chỗ đã nhắc "mục 08", "mục 10"…). Gồm cách Wishlist hoạt động (mỗi hãng 5 ô, 4 nhóm Elysion · Missilis · Tetra · Pilgrim/Over-spec = 20 con; mở sau 40 lượt; không tăng tỉ lệ SSR) và đề xuất 5 con mỗi hãng theo NIKKE bạn đang có, kèm con dự phòng. Thêm nút mục lục và nguồn [33] Gamemeca, [34] Reddit.</li>
+      <li><b>22:30</b> <strong>Scarlet: Black Shadow vào Synchro, Rosanna rút ra</strong> (bạn báo; Scarlet: BS chưa Limit Break). Mục 06: Scarlet: BS vào bảng Đã Sync, nhóm SS (6 → 7), nhãn VÀO SYNC; Rosanna sang bảng Chưa Sync, nhóm F, nhãn ĐÃ RÚT. Đã Sync vẫn 81, Chưa Sync 30 → 31, tổng 111 → 112. Xong việc "rút Rosanna".</li>
+      <li><b>22:30</b> Khung NIKKE META: Scarlet: Black Shadow đổi "Thiếu" → ✔. Tab Squad: bộ 3 số 6 và đội 5 con số 5 giờ chỉ còn thiếu Crown.</li>
+      <li><b>22:30</b> Mục 05: Wind 15 → 16 (LV 257 11 → 12); Electric LV 257 22 → 21, LV 01 3 → 4; Attacker 48 → 49; KHÔNG CẦN LV 257 42 → 41, LV 01 29 → 30; Chưa xếp 4 → 5 (thêm Scarlet: BS). Số trên đầu trang 111 → 112; ngày cập nhật đầu trang 07/11 → 08/11; chú thích nhãn VÀO SYNC / ĐÃ RÚT ghi "07–08/11".</li>
+      <li><b>22:30</b> Mục 01: thêm Scarlet: Black Shadow vào nhóm Chuyên boss (Kraken; skill S1 &gt; S2 · 7/4/7 → 10/7/10; cube Bastion/Resilience; Overload Elemental DMG &gt; ATK &gt; Crit, theo nikke.gg). Alice 4/12 → 3/12.</li>
+      <li><b>22:30</b> Mục 08 Kraken: đội A đổi Alice → Scarlet: Black Shadow (bạn có 4/5 con của đội tham khảo, chỉ thiếu Crown); Alice vẫn ở đội B. Bảng cơ chế chung và bảng hồi chiêu mục 07 thêm Scarlet: BS (Wind, 40s). Mục 09: thêm Scarlet: BS vào DPS Wind.</li>
+      <li><b>22:30</b> Mục 10: tháp Pilgrim 17 → 18 con, thêm Scarlet: BS làm lựa chọn; Tribe Tower chính đội C đổi Alice → Scarlet: BS (đổi lại Alice khi cần xuyên giáp).</li>
+      <li><b>22:04</b> Mục 10: thêm phần <strong>Tribe Tower chính</strong> (mọi hãng, kể cả Abnormal) với 3 đội từ roster LV 257: A (đội meta, thay Crown bằng Anchor, Helm bằng Mast), B (auto, Tia · Liter · Naga), C (lõi Wind cho quái Iron), kèm bảng đổi đội theo Code của tầng.</li>
       <li><b>12:49</b> Điện thoại: 2 bảng mục 06 và bảng NIKKE META (tab NIKKE, Treasure) đổi sang dạng thẻ, không cần vuốt ngang. Mỗi NIKKE 3 dòng: # · Tier · Tên / Class · Code · Burst · Vũ khí / Collection (hoặc Build · Tuần · Bạn, Đã mở · Phase 3 · Bạn). Máy tính vẫn hiện bảng như cũ.</li>
       <li><b>12:38</b> <strong>Sửa hiển thị trên điện thoại</strong> (bạn báo trang bị lệch trái, bảng mục 06 và NIKKE META bị cắt): mọi bảng giờ cuộn ngang trong khung riêng nên trang không còn bị kéo rộng; thêm dòng "Kéo ngang để xem đủ cột" trên điện thoại. Mục lục thành 1 hàng vuốt ngang; thu nhỏ lề, tiêu đề, logo Tribe Tower, ảnh boss; thẻ NIKKE xếp 2 cột; khung NIKKE META cao hơn.</li>
       <li><b>12:06</b> <strong>Sửa lịch Tribe Tower theo server Nhật</strong> (ảnh màn hình của bạn: Chủ Nhật mở cả 4; GameWith xác nhận). Chủ Nhật: cả 4 tháp (trước ghi chỉ Tetra). Thứ Hai: chỉ Tetra (trước ghi cả 4). Elysion: Thứ Ba, Sáu, Chủ Nhật · Missilis: Thứ Tư, Bảy, Chủ Nhật · Tetra: Thứ Hai, Năm, Chủ Nhật · Pilgrim: Thứ Tư, Chủ Nhật. Đã sửa bảng lịch, ô Tribe Tower hôm nay và tên ngày ở từng tháp mục 10; thêm nguồn [32].</li>
@@ -1304,7 +1541,7 @@ html,body{overflow-x:clip;max-width:100%}
 
 <footer style="padding:24px 0;font-size:12px;color:var(--muted);line-height:1.8">
   <strong style="font-family:var(--head);text-transform:uppercase;letter-spacing:.1em;color:var(--ink2)">Nguồn</strong><br>
-  [1] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1cmkwya/how_does_bursts_technically_work/" target="_blank">r/NikkeOutpost: Burst</a> · [2] <a href="https://nikke.gg/synchro-device-and-leveling-guide/" target="_blank">Nikke.gg: Synchro Device</a> · [3] <a href="https://nikke.gg/collection-item-guide-and-overview/" target="_blank">Nikke.gg: Collection</a> · [4] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Collection_Item" target="_blank">NIKKE Wiki: Collection Item</a> · [5] <a href="https://www.prydwen.gg/nikke/characters" target="_blank">Prydwen: Characters</a> · [6] <a href="https://nikkers.cc/characters" target="_blank">nikkers.cc</a> · [7] <a href="https://www.prydwen.gg/nikke/builds" target="_blank">Prydwen: Builds</a> · [8] <a href="https://www.ldshop.gg/blog/goddess-of-victory-nikke/nikke-scarlet-goddeath.html" target="_blank">LDShop: Scarlet: Goddeath</a> · [9] <a href="https://nikke.gg/anomaly-interception-overview/" target="_blank">Nikke.gg: Anomaly Interception</a> · [10]–[14] Nikke.gg: hướng dẫn từng boss · [15] <a href="https://www.reddit.com/r/NIKKEGoddessofVictory/comments/1r10bk2/" target="_blank">r/NIKKEGoddessofVictory: thứ tự Burst</a> · [16] <a href="https://nikke.gg/characterguides/rapi-red-hood/" target="_blank">Nikke.gg: Rapi: Red Hood</a> · [17] <a href="https://nikke.gg/characters/tia/" target="_blank">Nikke.gg: Tia</a> · [18] <a href="https://www.reddit.com/r/NikkeOutpost/comments/17wvoo6/" target="_blank">r/NikkeOutpost: vị trí đứng</a> · [19] <a href="https://nikke.gg/team-compositions/" target="_blank">Nikke.gg: Team Compositions (07/2024)</a> · [20] <a href="https://www.gamsgo.com/blog/nikke-best-team" target="_blank">GamsGo: Best Teams 2026</a> · [21] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1ht34a1/whats_a_good_team/" target="_blank">r/NikkeOutpost: đội không có Crown</a> · [22] <a href="https://nikke.gg/characters/mast-romantic-maid/" target="_blank">Nikke.gg: Mast: Romantic Maid</a> · [23] <a href="https://www.prydwen.gg/nikke/characters/eunhwa-tactical-upgrade" target="_blank">Prydwen: Eunhwa: Tactical Upgrade</a> · [24] <a href="https://nikke.gg/characters/eunhwa-tactical-upgrade" target="_blank">Nikke.gg: Eunhwa: Tactical Upgrade</a> · [25] <a href="https://nikke.gg/tier-list/" target="_blank">Nikke.gg: Tier List (11/2026)</a> · [26] <a href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">Prydwen: Tribe Towers</a> · [27] <a href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">Nikke.gg: Tribe Towers Guide</a> · [28] <a href="https://nikke.gg/tribe-tower-compositions/" target="_blank">Nikke.gg: Tribe Tower Compositions (04/2025)</a> · [29] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Nikke/List_by_Manufacturer" target="_blank">NIKKE Wiki: List by Manufacturer</a> · [30] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Tribe_Tower" target="_blank">NIKKE Wiki: Tribe Tower</a> · [31] <a href="https://nikke.gg/meta/" target="_blank">Nikke.gg: NIKKE Meta (NIKKE · Squads · Treasures)</a> · [32] <a href="https://gamewith.jp/nikke/article/show/370073" target="_blank">GameWith: トライブタワー (lịch server Nhật)</a>
+  [1] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1cmkwya/how_does_bursts_technically_work/" target="_blank">r/NikkeOutpost: Burst</a> · [2] <a href="https://nikke.gg/synchro-device-and-leveling-guide/" target="_blank">Nikke.gg: Synchro Device</a> · [3] <a href="https://nikke.gg/collection-item-guide-and-overview/" target="_blank">Nikke.gg: Collection</a> · [4] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Collection_Item" target="_blank">NIKKE Wiki: Collection Item</a> · [5] <a href="https://www.prydwen.gg/nikke/characters" target="_blank">Prydwen: Characters</a> · [6] <a href="https://nikkers.cc/characters" target="_blank">nikkers.cc</a> · [7] <a href="https://www.prydwen.gg/nikke/builds" target="_blank">Prydwen: Builds</a> · [8] <a href="https://www.ldshop.gg/blog/goddess-of-victory-nikke/nikke-scarlet-goddeath.html" target="_blank">LDShop: Scarlet: Goddeath</a> · [9] <a href="https://nikke.gg/anomaly-interception-overview/" target="_blank">Nikke.gg: Anomaly Interception</a> · [10]–[14] Nikke.gg: hướng dẫn từng boss · [15] <a href="https://www.reddit.com/r/NIKKEGoddessofVictory/comments/1r10bk2/" target="_blank">r/NIKKEGoddessofVictory: thứ tự Burst</a> · [16] <a href="https://nikke.gg/characterguides/rapi-red-hood/" target="_blank">Nikke.gg: Rapi: Red Hood</a> · [17] <a href="https://nikke.gg/characters/tia/" target="_blank">Nikke.gg: Tia</a> · [18] <a href="https://www.reddit.com/r/NikkeOutpost/comments/17wvoo6/" target="_blank">r/NikkeOutpost: vị trí đứng</a> · [19] <a href="https://nikke.gg/team-compositions/" target="_blank">Nikke.gg: Team Compositions (07/2024)</a> · [20] <a href="https://www.gamsgo.com/blog/nikke-best-team" target="_blank">GamsGo: Best Teams 2026</a> · [21] <a href="https://www.reddit.com/r/NikkeOutpost/comments/1ht34a1/whats_a_good_team/" target="_blank">r/NikkeOutpost: đội không có Crown</a> · [22] <a href="https://nikke.gg/characters/mast-romantic-maid/" target="_blank">Nikke.gg: Mast: Romantic Maid</a> · [23] <a href="https://www.prydwen.gg/nikke/characters/eunhwa-tactical-upgrade" target="_blank">Prydwen: Eunhwa: Tactical Upgrade</a> · [24] <a href="https://nikke.gg/characters/eunhwa-tactical-upgrade" target="_blank">Nikke.gg: Eunhwa: Tactical Upgrade</a> · [25] <a href="https://nikke.gg/tier-list/" target="_blank">Nikke.gg: Tier List (11/2026)</a> · [26] <a href="https://www.prydwen.gg/nikke/guides/game-modes-tribe-towers" target="_blank">Prydwen: Tribe Towers</a> · [27] <a href="https://nikke.gg/ark-tribe-towers-guide/" target="_blank">Nikke.gg: Tribe Towers Guide</a> · [28] <a href="https://nikke.gg/tribe-tower-compositions/" target="_blank">Nikke.gg: Tribe Tower Compositions (04/2025)</a> · [29] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Nikke/List_by_Manufacturer" target="_blank">NIKKE Wiki: List by Manufacturer</a> · [30] <a href="https://nikke-goddess-of-victory-international.fandom.com/wiki/Tribe_Tower" target="_blank">NIKKE Wiki: Tribe Tower</a> · [31] <a href="https://nikke.gg/meta/" target="_blank">Nikke.gg: NIKKE Meta (NIKKE · Squads · Treasures)</a> · [32] <a href="https://gamewith.jp/nikke/article/show/370073" target="_blank">GameWith: トライブタワー (lịch server Nhật)</a> · [33] <a href="https://www.gamemeca.com/en/view.php?gid=1782927" target="_blank">Gamemeca: Wishlist guide (06/11/2026)</a> · [34] <a href="https://www.reddit.com/r/NikkeMobile/comments/1hklnqk/you_can_now_wishlist_ocpilgrim_units_now/" target="_blank">r/NikkeMobile: Wishlist Pilgrim/Over-spec</a> · [35] <a href="https://www.reddit.com/r/NikkeMobile/comments/1tt5ktw/mint_and_prikas_reviews_by_prydwen/" target="_blank">r/NikkeMobile: Mint &amp; Prika (Prydwen)</a> · [36] <a href="https://www.reddit.com/r/NikkeMobile/comments/1v81k4r/laplace_ultimate_hero_and_flora_treasure_review/" target="_blank">r/NikkeMobile: Laplace: Ultimate Hero &amp; Flora Treasure (Prydwen)</a> · [37] <a href="https://lootandwaifus.com/character/soline-frost-ticket-nikke/" target="_blank">Loot &amp; Waifus: Soline: Frost Ticket</a> · [38] <a href="https://www.prydwen.gg/nikke/characters/scarlet-goddeath" target="_blank">Prydwen: Scarlet: Goddeath (review &amp; teams)</a> · [39] <a href="https://nikke.gg/characters/" target="_blank">Nikke.gg: trang từng NIKKE (điểm Story / Boss / PvP)</a> · [40] <a href="https://www.prydwen.gg/nikke/characters/rapunzel-sanctuary" target="_blank">Prydwen: Rapunzel: Sanctuary (review &amp; build)</a> · [41] <a href="https://www.prydwen.gg/nikke/characters" target="_blank">Prydwen: trang từng NIKKE, mục Gear Investment (dòng Overload, 11/2026)</a>
 </footer>
 
 <script>(function(){
@@ -1323,11 +1560,11 @@ html,body{overflow-x:clip;max-width:100%}
     R[nm(c[1])]={t:b?b.outerHTML:'',c:c[3].innerHTML,b:c[4].textContent.trim(),w:c[5].textContent.trim(),k:c[6].textContent.trim()};
   });
   R['Siren']=R['Siren (Little Mermaid)'];
-  /* 6 con bạn chưa có: tier nikke.gg 11/2026 */
-  var X={'Crown':['sss','iron','II','MG','Defender'],'Cinderella: Crystal Wave':['sss','iron','III','MG','Attacker'],'Scarlet: Black Shadow':['ss','wind','III','RL','Attacker'],'Marian: Queen':['sss','fire','III','MG','Attacker'],'Dorothy: Serendipity':['s','water','III','SG','Attacker'],'Mihara: Bonding Chain':['a','fire','III','MG','Attacker']};
+  /* 5 con bạn chưa có: tier nikke.gg 11/2026 */
+  var X={'Crown':['sss','iron','II','MG','Defender'],'Cinderella: Crystal Wave':['sss','iron','III','MG','Attacker'],'Marian: Queen':['sss','fire','III','MG','Attacker'],'Dorothy: Serendipity':['s','water','III','SG','Attacker'],'Mihara: Bonding Chain':['a','fire','III','MG','Attacker']};
   for(var n in X){var v=X[n];R[n]={t:tb(v[0]),c:cd(v[1]),b:v[2],w:v[3],k:v[4]}}
   /* 2) mục 06: đổi chỗ cột */
-  var ORD=[0,2,1,6,3,4,5,7];
+  var ORD=[0,2,1,6,3,4,5,7,8,9];
   document.querySelectorAll('#roster table tr').forEach(function(tr){
     if(tr.classList.contains('grp')||tr.cells.length<8)return;
     var c=[].slice.call(tr.cells);
@@ -1353,6 +1590,37 @@ html,body{overflow-x:clip;max-width:100%}
     t.classList.add('cards');
     var hs=[].map.call(t.tHead.rows[0].cells,function(h){return h.textContent.trim()});
     [].forEach.call(t.tBodies[0].rows,function(tr){if(tr.classList.contains('grp'))return;[].forEach.call(tr.cells,function(td,i){td.dataset.l=hs[i]})});
+  });
+  /* 5) thẻ NIKKE ở mục 01, 08, 09, 10: thêm dòng Cube và Overload lấy từ bảng của mục 06 (bỏ qua thẻ đã ghi sẵn trong dòng Skill) */
+  var CB=window.NKCUBE||{},GR=window.NKGEAR||{},AL={'Siren':'Siren (Little Mermaid)','Emma: TU':'Emma: Tactical Upgrade','Eunhwa: TU':'Eunhwa: Tactical Upgrade','Vesti: TU':'Vesti: Tactical Upgrade','Asuka':'Asuka Shikinami Langley','Scarlet: BS':'Scarlet: Black Shadow','Snow White: HA':'Snow White: Heavy Arms'};
+  document.querySelectorAll('#build .nk, #ai .nk, #story .nk, #tower .nk').forEach(function(k){
+    var e=k.querySelector('.nm');if(!e)return;
+    var sk=k.querySelector('.sk'),st=sk?sk.textContent:'';
+    var names=e.textContent.trim().split(' / ');
+    [['Cube',CB],['Overload',GR]].forEach(function(p){
+      if(st.indexOf(p[0])>=0)return;
+      function g(n){return p[1][AL[n]||n]}
+      if(!names.some(g))return;
+      var txt=names.length>1?names.map(function(n){return n+': '+(g(n)||'?')}).join(' · '):g(names[0]);
+      k.insertAdjacentHTML('beforeend','<span class="cb"><b>'+p[0]+':</b> '+txt+'</span>');
+    });
+  });
+  /* 6) thẻ mục 01: ảnh NIKKE làm nền, lấy từ thư mục nikke/ theo tên (vd "Mast: Romantic Maid" → nikke/mast-romantic-maid.webp); thiếu ảnh thì giữ thẻ như cũ */
+  document.querySelectorAll('#build .nk').forEach(function(k){
+    var e=k.querySelector('.nm');if(!e)return;
+    /* nhận cả 2 kiểu tên file: mast-romantic-maid.webp hoặc Mast_Romantic_Maid.webp */
+    var base=e.textContent.replace(/\(.*?\)/g,'').replace(/:/g,'').trim();
+    var cand=[base.toLowerCase().replace(/\s+/g,'-'),base.replace(/\s+/g,'_')].map(function(s){return 'nikke/'+s+'.webp'});
+    var src,im=new Image(),n=0;
+    im.onerror=function(){if(++n<cand.length)im.src=src=cand[n]};
+    im.onload=function(){
+      var t=document.createElement('div');t.className='top';
+      ['.nm','.meta','.why'].forEach(function(s){var x=k.querySelector(':scope>'+s);if(x)t.appendChild(x)});
+      k.insertBefore(t,k.querySelector(':scope>.sk')||k.querySelector(':scope>.cb')||null);
+      k.insertAdjacentHTML('afterbegin','<span class="bg" style="--img:url('+src+')"></span>');
+      k.classList.add('hasbg');
+    };
+    im.src=src=cand[0];
   });
 })();</script>
 <script>(function(){
